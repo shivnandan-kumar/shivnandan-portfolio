@@ -40,3 +40,8 @@ def test_primary_navigation_links_to_page_sections(client):
     assert b'aria-label="About"' in response.data
     assert b'aria-label="Skills"' in response.data
     assert b'aria-label="Contact"' in response.data
+    assert b'data-tooltip="Home"' in response.data
+    assert b'data-tooltip="Projects"' in response.data
+    assert b'data-tooltip="About"' in response.data
+    assert b'data-tooltip="Skills"' in response.data
+    assert b'data-tooltip="Contact"' in response.data

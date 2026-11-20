@@ -91,6 +91,7 @@ main {
 }
 
 .nav-list a {
+  position: relative;
   display: grid;
   width: 2.75rem;
   height: 2.75rem;
@@ -99,6 +100,32 @@ main {
   color: var(--color-muted);
   text-decoration: none;
   transition: background-color 160ms ease, color 160ms ease;
+}
+
+.nav-list a::after {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 50%;
+  z-index: 2;
+  padding: 0.35rem 0.75rem;
+  transform: translate(-50%, -0.25rem);
+  border-radius: 0.6rem;
+  background: #34312e;
+  color: #fff;
+  content: attr(data-tooltip);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.nav-list a:hover::after,
+.nav-list a:focus-visible::after {
+  transform: translate(-50%, 0);
+  opacity: 1;
 }
 
 .nav-list svg {
@@ -202,6 +229,10 @@ h2 {
   }
 
   .nav-list a {
+    transition: none;
+  }
+
+  .nav-list a::after {
     transition: none;
   }
 }

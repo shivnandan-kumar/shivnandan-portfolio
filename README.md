@@ -10,7 +10,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - A home route (`/`) that renders a Jinja template.
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
-- Inline SVG navigation icons with accessible names; no icon package is required.
+- Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
 - Pytest checks for the home page, navigation targets, and accessible icon labels.
 - Gunicorn included as the planned production WSGI server.
 
@@ -89,7 +89,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current tests check that `GET /` returns HTTP `200`, includes the expected page heading, and provides labelled icon navigation links to existing sections.
+The current tests check that `GET /` returns HTTP `200`, includes the expected page heading, and provides labelled icon navigation links with tooltip labels to existing sections.
 
 ## Application Flow
 

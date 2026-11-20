@@ -29,7 +29,14 @@ def test_primary_navigation_links_to_page_sections(client):
     assert b'href="#home"' in response.data
     assert b'href="#projects"' in response.data
     assert b'href="#about"' in response.data
+    assert b'href="#skills"' in response.data
     assert b'href="#contact"' in response.data
     assert b'id="projects"' in response.data
     assert b'id="about"' in response.data
+    assert b'id="skills"' in response.data
     assert b'id="contact"' in response.data
+    assert b'aria-label="Home"' in response.data
+    assert b'aria-label="Projects"' in response.data
+    assert b'aria-label="About"' in response.data
+    assert b'aria-label="Skills"' in response.data
+    assert b'aria-label="Contact"' in response.data

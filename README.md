@@ -2,15 +2,16 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation and an accessible, responsive page shell with primary navigation. Project and about content, contact form, SEO assets, and production deployment are still in progress.
+> **Project status:** The repository contains the Flask foundation and an accessible, responsive page shell with an icon-based primary navigation dock. Project and about content, contact form, SEO assets, and production deployment are still in progress.
 
 ## Current Features
 
 - Flask application with an application factory.
 - A home route (`/`) that renders a Jinja template.
-- Semantic page landmarks and responsive primary navigation.
+- Semantic page landmarks and a responsive, icon-based primary navigation dock.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
-- Pytest checks for the home page and navigation targets.
+- Inline SVG navigation icons with accessible names; no icon package is required.
+- Pytest checks for the home page, navigation targets, and accessible icon labels.
 - Gunicorn included as the planned production WSGI server.
 
 ## Technology
@@ -88,7 +89,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current tests check that `GET /` returns HTTP `200`, includes the expected page heading, and provides primary navigation links to existing sections.
+The current tests check that `GET /` returns HTTP `200`, includes the expected page heading, and provides labelled icon navigation links to existing sections.
 
 ## Application Flow
 

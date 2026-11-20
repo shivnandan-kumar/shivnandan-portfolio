@@ -3,12 +3,56 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portfolio</title>
+    <meta name="theme-color" content="#111318">
+    <title>Shivnandan Kumar | Python Flask Developer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   </head>
   <body>
-    <main>
-      <h1>Portfolio foundation</h1>
-      <p>The Flask application is running.</p>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <a class="site-brand" href="#home" aria-label="Shivnandan Kumar, home">
+        Shivnandan Kumar
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li><a href="#home" aria-current="page">Home</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="page-section hero" id="home" aria-labelledby="home-title">
+        <p class="eyebrow">Python Flask Developer</p>
+        <h1 id="home-title">Shivnandan Kumar</h1>
+        <p class="section-note">Portfolio content is being built.</p>
+      </section>
+
+      <section class="page-section" id="projects" aria-labelledby="projects-title">
+        <p class="eyebrow">Selected work</p>
+        <h2 id="projects-title">Projects</h2>
+        <p class="section-note">Project details will be added here.</p>
+      </section>
+
+      <section class="page-section" id="about" aria-labelledby="about-title">
+        <p class="eyebrow">A little about me</p>
+        <h2 id="about-title">About</h2>
+        <p class="section-note">Introduction and education details will be added here.</p>
+      </section>
+
+      <section class="page-section" id="contact" aria-labelledby="contact-title">
+        <p class="eyebrow">Get in touch</p>
+        <h2 id="contact-title">Contact</h2>
+        <p class="section-note">Contact details and form will be added here.</p>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <p>Shivnandan Kumar</p>
+    </footer>
   </body>
 </html>

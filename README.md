@@ -2,13 +2,15 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository currently contains the initial Flask foundation and a basic home page. Portfolio sections, final design, contact form, SEO assets, and production deployment are planned but are not implemented yet.
+> **Project status:** The repository contains the Flask foundation and an accessible, responsive page shell with primary navigation. Project and about content, contact form, SEO assets, and production deployment are still in progress.
 
 ## Current Features
 
 - Flask application with an application factory.
 - A home route (`/`) that renders a Jinja template.
-- A basic pytest check for the home page response.
+- Semantic page landmarks and responsive primary navigation.
+- A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
+- Pytest checks for the home page and navigation targets.
 - Gunicorn included as the planned production WSGI server.
 
 ## Technology
@@ -28,6 +30,9 @@ The project does not use a database, authentication, an admin panel, React, Tail
 |-- app.py                 # Flask application factory and routes
 |-- requirements.txt       # Runtime dependencies
 |-- requirements-dev.txt   # Runtime dependencies plus pytest
+|-- static/
+|   `-- css/
+|       `-- styles.css     # Responsive layout and accessibility styles
 |-- templates/
 |   `-- index.html         # Home page template
 `-- tests/
@@ -83,7 +88,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current test checks that `GET /` returns HTTP `200` and includes the expected home-page heading.
+The current tests check that `GET /` returns HTTP `200`, includes the expected page heading, and provides primary navigation links to existing sections.
 
 ## Application Flow
 
@@ -107,7 +112,6 @@ The planned Render web service can use:
 
 Development follows the approved product requirements and proceeds in small reviewed steps:
 
-- Build the semantic page structure and navigation.
 - Add approved personal content, projects, education, and skills.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization, favicon, Open Graph metadata, `sitemap.xml`, and `robots.txt`.

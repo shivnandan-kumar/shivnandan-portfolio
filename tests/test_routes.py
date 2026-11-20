@@ -19,4 +19,17 @@ def test_home_page_returns_successful_response(client):
     response = client.get("/")
 
     assert response.status_code == 200
-    assert b"Portfolio foundation" in response.data
+    assert b"Shivnandan Kumar" in response.data
+
+
+def test_primary_navigation_links_to_page_sections(client):
+    response = client.get("/")
+
+    assert b'<nav aria-label="Primary navigation">' in response.data
+    assert b'href="#home"' in response.data
+    assert b'href="#projects"' in response.data
+    assert b'href="#about"' in response.data
+    assert b'href="#contact"' in response.data
+    assert b'id="projects"' in response.data
+    assert b'id="about"' in response.data
+    assert b'id="contact"' in response.data

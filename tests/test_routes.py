@@ -1,0 +1,22 @@
+"""Tests for the portfolio's public pages."""
+
+import pytest
+
+from app import create_app
+
+
+@pytest.fixture()
+def client():
+    """Provide a test client for an isolated Flask application."""
+    app = create_app()
+    app.config.update(TESTING=True)
+
+    with app.test_client() as test_client:
+        yield test_client
+
+
+def test_home_page_returns_successful_response(client):
+    response = client.get("/")
+
+    assert response.status_code == 200
+    assert b"Portfolio foundation" in response.data

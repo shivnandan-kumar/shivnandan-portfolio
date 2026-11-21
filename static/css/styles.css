@@ -317,6 +317,54 @@ h2 {
   letter-spacing: -0.03em;
 }
 
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.skill-group {
+  min-width: 0;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: linear-gradient(145deg, #191b22, #15171c);
+}
+
+.skill-group-index {
+  margin-bottom: 1.5rem;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.skill-group h3 {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  letter-spacing: -0.025em;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-list li {
+  padding: 0.4rem 0.65rem;
+  border: 1px solid #393943;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 2%);
+  color: #dedee3;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -535,6 +583,20 @@ h2 {
 
   .about-introduction h3 {
     font-size: clamp(2.25rem, 10vw, 3.5rem);
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .skill-group {
+    padding: 1.25rem;
+  }
+
+  .skill-group-index {
+    margin-bottom: 0.8rem;
   }
 
   .education-card h3 {

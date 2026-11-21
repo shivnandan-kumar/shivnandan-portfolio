@@ -81,6 +81,20 @@ def test_about_section_includes_confirmed_profile_and_education(client):
     assert b"education-icon" in response.data
 
 
+def test_skills_section_lists_confirmed_tools_by_category(client):
+    response = client.get("/")
+
+    assert b'Technologies and tools from my development toolkit.' in response.data
+    for skill in (
+        b"Backend", b"Python", b"Flask", b"SQLAlchemy",
+        b"Frontend", b"HTML", b"CSS", b"JavaScript",
+        b"Databases", b"PostgreSQL", b"SQLite",
+        b"Developer tools", b"Git", b"GitHub", b"VS Code",
+        b"Deployment &amp; platform", b"Render", b"Supabase",
+    ):
+        assert skill in response.data
+
+
 def test_stylesheet_includes_phone_and_narrow_phone_layouts(client):
     response = client.get("/static/css/styles.css")
 

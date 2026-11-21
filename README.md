@@ -2,7 +2,7 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, and BloodLink and E-Governance project cards. Both repository and demo links are included. BloodLink uses SQLite locally and Supabase PostgreSQL in production. Real project screenshots, remaining profile content, contact form, SEO assets, and portfolio deployment are still pending.
+> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, and confirmed About and Education details. Both project repository and demo links are included. BloodLink uses SQLite locally and Supabase PostgreSQL in production. Real project screenshots, skills, contact form, SEO assets, and portfolio deployment are still pending.
 
 ## Current Features
 
@@ -13,6 +13,8 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - BloodLink and E-Governance cards with confirmed summaries, technology tags, repository links, and live demos.
 - BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
 - Both project cards link to the supplied live demos.
+- About section states the confirmed Python Flask developer role and projects; Education lists the confirmed BCA program, Sai Nath University in Ranchi, and 2026 passing year.
+- About and Education cards use a two-column desktop layout that stacks on phone screens.
 - Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
@@ -94,7 +96,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current tests check that `GET /` returns HTTP `200`, includes the expected page heading and featured project details, provides labelled icon navigation links and confirmed project URLs, and serves phone/narrow-phone responsive CSS rules.
+The current tests check that `GET /` returns HTTP `200`, includes the expected page heading, featured project details, and confirmed About and Education content, provides labelled icon navigation links and confirmed project URLs, and serves phone/narrow-phone responsive CSS rules.
 
 ## Application Flow
 
@@ -118,7 +120,7 @@ The planned Render web service can use:
 
 Development follows the approved product requirements and proceeds in small reviewed steps:
 
-- Add real project screenshots, plus approved education, skills, and About content.
+- Add real project screenshots and confirmed skills.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization, favicon, Open Graph metadata, `sitemap.xml`, and `robots.txt`.
 - Implement the contact form with server-side validation, spam protection, and email delivery.

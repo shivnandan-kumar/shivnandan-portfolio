@@ -69,6 +69,15 @@ def test_featured_projects_link_to_confirmed_repositories_and_demo(client):
     assert b'rel="noopener noreferrer"' in response.data
 
 
+def test_about_section_includes_confirmed_profile_and_education(client):
+    response = client.get("/")
+
+    assert b"I build web applications with Python and Flask." in response.data
+    assert b"Bachelor of Computer Applications (BCA)" in response.data
+    assert b"Sai Nath University, Ranchi" in response.data
+    assert b"Passing year: 2026" in response.data
+
+
 def test_stylesheet_includes_phone_and_narrow_phone_layouts(client):
     response = client.get("/static/css/styles.css")
 

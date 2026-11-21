@@ -74,7 +74,7 @@ def test_about_section_includes_confirmed_profile_and_education(client):
     page = " ".join(response.get_data(as_text=True).split())
 
     assert "Python &amp; Flask<br><span>Developer</span>" in page
-    assert "I'm a Python &amp; Flask Developer focused on building practical web applications and backend solutions." in page
+    assert "I build practical web applications and backend solutions using Python and Flask, focusing on solving real-world problems through clean and reliable code." in page
     assert "I enjoy turning real-world problems into functional applications, with a focus on clean code, database integration, and reliable functionality." in page
     assert "My work includes projects like BloodLink and an E-Governance Complaint and Service Management Portal." in page
     assert b"Bachelor of Computer Applications (BCA)" in response.data

@@ -582,6 +582,111 @@ h2 {
   background: rgb(184 166 255 / 10%);
 }
 
+.contact-notices,
+.contact-form {
+  max-width: 48rem;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.contact-field {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 0.55rem;
+}
+
+.contact-field-message,
+.contact-honeypot {
+  grid-column: 1 / -1;
+}
+
+.contact-field label {
+  color: #f4f4f5;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.contact-control {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.7rem;
+  background: #17191f;
+  color: #f4f4f5;
+  font: inherit;
+}
+
+.contact-control:focus-visible,
+.contact-submit:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.contact-message-control {
+  min-height: 10rem;
+  resize: vertical;
+}
+
+.contact-errors {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #f0b6b6;
+  font-size: 0.875rem;
+}
+
+.contact-notice {
+  margin: 1.25rem 0 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.7rem;
+  background: #17191f;
+  line-height: 1.5;
+}
+
+.contact-notice-error {
+  border-color: #7a4b4b;
+}
+
+.contact-notice-success {
+  border-color: rgb(184 166 255 / 45%);
+}
+
+.contact-submit {
+  min-height: 2.9rem;
+  justify-self: start;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid #48434f;
+  border-radius: 0.65rem;
+  background: transparent;
+  color: #f4f4f5;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.contact-submit:hover {
+  border-color: var(--color-accent);
+  background: rgb(184 166 255 / 10%);
+}
+
+.contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .site-footer {
   padding-block: 2rem;
   color: var(--color-muted);
@@ -628,6 +733,16 @@ h2 {
 
   .project-grid {
     grid-template-columns: 1fr;
+  }
+
+  .contact-form {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contact-field-message,
+  .contact-honeypot {
+    grid-column: auto;
   }
 
   .about-grid {
@@ -708,6 +823,10 @@ h2 {
   }
 
   .project-link {
+    transition: none;
+  }
+
+  .contact-submit {
     transition: none;
   }
 

@@ -247,7 +247,58 @@
       <section class="page-section" id="contact" aria-labelledby="contact-title">
         <p class="eyebrow">Get in touch</p>
         <h2 id="contact-title">Contact</h2>
-        <p class="section-note">Contact details and form will be added here.</p>
+        <p class="section-note">Use the form below to send me a message.</p>
+
+        {% with notices = get_flashed_messages(with_categories=true) %}
+          {% if notices %}
+            <div class="contact-notices" aria-live="polite">
+              {% for category, notice in notices %}
+                <p class="contact-notice contact-notice-{{ category }}" role="{{ 'alert' if category == 'error' else 'status' }}">{{ notice }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form class="contact-form" method="post" action="{{ url_for('home') }}#contact" novalidate>
+          {{ contact_form.hidden_tag() }}
+
+          <div class="contact-honeypot" aria-hidden="true">
+            {{ contact_form.website.label }}
+            {{ contact_form.website(autocomplete="off", tabindex="-1") }}
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-name">Name</label>
+            {{ contact_form.name(id="contact-name", class="contact-control", autocomplete="name", maxlength="80", required=true, aria_describedby="contact-name-errors") }}
+            {% if contact_form.name.errors %}
+              <ul class="contact-errors" id="contact-name-errors" role="alert">
+                {% for error in contact_form.name.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-email">Email</label>
+            {{ contact_form.email(id="contact-email", class="contact-control", type="email", autocomplete="email", maxlength="254", required=true, aria_describedby="contact-email-errors") }}
+            {% if contact_form.email.errors %}
+              <ul class="contact-errors" id="contact-email-errors" role="alert">
+                {% for error in contact_form.email.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="contact-field contact-field-message">
+            <label for="contact-message">Message</label>
+            {{ contact_form.message(id="contact-message", class="contact-control contact-message-control", rows="6", maxlength="3000", required=true, aria_describedby="contact-message-errors") }}
+            {% if contact_form.message.errors %}
+              <ul class="contact-errors" id="contact-message-errors" role="alert">
+                {% for error in contact_form.message.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <button class="contact-submit" type="submit">Send message</button>
+        </form>
       </section>
     </main>
 

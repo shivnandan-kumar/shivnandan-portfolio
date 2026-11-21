@@ -2,7 +2,7 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, and categorized skills from the PRD. Both project repository and demo links are included. BloodLink uses SQLite locally and Supabase PostgreSQL in production. Real project screenshots, contact form, SEO assets, and portfolio deployment are still pending.
+> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SMTP delivery is ready for environment configuration. Real project screenshots, SEO assets, and portfolio deployment are still pending.
 
 ## Current Features
 
@@ -17,6 +17,8 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - About uses a compact editorial layout beside a highlighted Education card, then stacks cleanly on phone screens.
 - Confirmed skills are grouped into Backend, Frontend, Databases, Developer tools, and Deployment & platform categories.
 - Skills use full-width category rows on desktop, adjusted spacing and wrapping on tablets, and stacked labels and tags on phones. Skill badge hover feedback is subtle and disabled for reduced-motion preferences.
+- Contact form validates names, email addresses, and message length on the server; CSRF tokens and a hidden honeypot provide basic abuse protection.
+- Contact email is sent through configurable SMTP using Python's standard library. Delivery reports an unavailable status until the private SMTP and recipient environment variables are configured.
 - Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
@@ -27,7 +29,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 
 - Python and Flask
 - HTML templates rendered with Jinja
-- Flask-WTF, reserved for form validation and CSRF protection when the contact form is implemented
+- Flask-WTF for contact form validation and CSRF protection
 - Gunicorn for production serving
 - pytest for automated tests
 
@@ -38,6 +40,8 @@ The portfolio site itself does not use a database, authentication, an admin pane
 ```text
 .
 |-- app.py                 # Flask application factory and routes
+|-- email_service.py       # SMTP delivery through Python's standard library
+|-- forms.py               # Contact form validation and honeypot
 |-- requirements.txt       # Runtime dependencies
 |-- requirements-dev.txt   # Runtime dependencies plus pytest
 |-- static/
@@ -98,7 +102,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current tests check that `GET /` returns HTTP `200`, includes the expected page heading, featured project details, confirmed About, Education, and Skills content, provides labelled icon navigation links and confirmed project URLs, and serves phone/narrow-phone responsive CSS rules.
+The current tests check public page content and navigation, responsive CSS, and contact form rendering, input validation, CSRF rejection, honeypot handling, successful mocked delivery, and graceful behavior when SMTP settings are missing. Tests do not send email.
 
 ## Application Flow
 
@@ -116,7 +120,18 @@ The planned Render web service can use:
 - **Build command:** `pip install -r requirements.txt`
 - **Start command:** `gunicorn app:app`
 
-`app:app` means "load the `app` object from the `app.py` module." Deployment has not been completed yet. The current app does not require environment variables; production secrets and email settings will be documented when those features are implemented.
+`app:app` means "load the `app` object from the `app.py` module." Deployment has not been completed yet.
+
+The contact form reads these environment variables. Set them in Render's environment settings; keep credentials out of source control:
+
+- `SECRET_KEY`: a long, random secret used to protect Flask sessions and CSRF tokens. Required on Render.
+- `CONTACT_RECIPIENT`: destination inbox for contact messages.
+- `SMTP_HOST`: SMTP server hostname from the chosen mail provider.
+- `SMTP_PORT`: `587` for STARTTLS or `465` for implicit TLS. Defaults to `587`.
+- `SMTP_USERNAME`: SMTP login username.
+- `SMTP_PASSWORD`: SMTP password or provider-issued app password.
+
+Until all SMTP values are set, the form validates submissions but reports that delivery is unavailable. The recipient address is kept in environment configuration and is not rendered on the page.
 
 ## Roadmap
 
@@ -126,8 +141,7 @@ Development follows the approved product requirements and proceeds in small revi
 - Refine visual details across the portfolio as sections are reviewed.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization, favicon, Open Graph metadata, `sitemap.xml`, and `robots.txt`.
-- Implement the contact form with server-side validation, spam protection, and email delivery.
-- Add tests for form validation and relevant routes.
+- Configure SMTP credentials in Render and verify an actual delivery.
 - Configure and verify Render deployment.
 
 Personal details, project URLs, assets, and email credentials will be added only after they are confirmed. Version 1.0 does not include a database, admin panel, or authentication system.

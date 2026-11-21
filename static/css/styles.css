@@ -238,6 +238,10 @@ h2 {
   font-size: clamp(1rem, 1.6vw, 1.15rem);
 }
 
+.about-introduction .section-note + .section-note {
+  margin-top: 1rem;
+}
+
 .education-card h3 {
   margin: 1.5rem 0 1.25rem;
   font-size: clamp(1.35rem, 2.7vw, 1.85rem);

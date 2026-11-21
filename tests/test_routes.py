@@ -71,8 +71,12 @@ def test_featured_projects_link_to_confirmed_repositories_and_demo(client):
 
 def test_about_section_includes_confirmed_profile_and_education(client):
     response = client.get("/")
+    page = " ".join(response.get_data(as_text=True).split())
 
-    assert b"I build web applications with Python and Flask." in response.data
+    assert "Python &amp; Flask<br><span>Developer</span>" in page
+    assert "I'm a Python &amp; Flask Developer focused on building practical web applications and backend solutions." in page
+    assert "I enjoy turning real-world problems into functional applications, with a focus on clean code, database integration, and reliable functionality." in page
+    assert "My work includes projects like BloodLink and an E-Governance Complaint and Service Management Portal." in page
     assert b"Bachelor of Computer Applications (BCA)" in response.data
     assert b"Sai Nath University" in response.data
     assert b"Ranchi" in response.data

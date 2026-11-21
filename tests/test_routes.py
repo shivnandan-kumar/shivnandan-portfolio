@@ -103,3 +103,13 @@ def test_stylesheet_includes_phone_and_narrow_phone_layouts(client):
     assert b"@media (max-width: 22rem)" in response.data
     assert b"grid-template-columns: 1fr" in response.data
     assert b"min-width: 320px" not in response.data
+
+
+def test_skills_styles_preserve_rows_and_support_responsive_badges(client):
+    response = client.get("/static/css/styles.css")
+
+    assert b"grid-template-columns: minmax(0, 1fr)" in response.data
+    assert b"@media (min-width: 40.01rem) and (max-width: 56rem)" in response.data
+    assert b".skill-list li:hover" in response.data
+    assert b"transition: border-color 160ms ease" in response.data
+    assert b".skill-list li" in response.data

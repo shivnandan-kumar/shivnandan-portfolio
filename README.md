@@ -2,16 +2,16 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, and BloodLink and E-Governance project cards. Both repository links and the E-Governance demo link are included. BloodLink uses SQLite locally and Supabase PostgreSQL in production. A BloodLink demo, real project screenshots, remaining profile content, contact form, SEO assets, and portfolio deployment are still pending.
+> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, and BloodLink and E-Governance project cards. Both repository and demo links are included. BloodLink uses SQLite locally and Supabase PostgreSQL in production. Real project screenshots, remaining profile content, contact form, SEO assets, and portfolio deployment are still pending.
 
 ## Current Features
 
 - Flask application with an application factory.
 - A home route (`/`) that renders a Jinja template.
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
-- BloodLink and E-Governance cards with confirmed summaries, technology tags, and repository links.
+- BloodLink and E-Governance cards with confirmed summaries, technology tags, repository links, and live demos.
 - BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
-- E-Governance card links to its listed Render demo; no BloodLink demo URL is listed in its repository README.
+- Both project cards link to the supplied live demos.
 - Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
@@ -117,7 +117,7 @@ The planned Render web service can use:
 
 Development follows the approved product requirements and proceeds in small reviewed steps:
 
-- Add a confirmed BloodLink demo URL and real project screenshots, plus approved education, skills, and About content.
+- Add real project screenshots, plus approved education, skills, and About content.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization, favicon, Open Graph metadata, `sitemap.xml`, and `robots.txt`.
 - Implement the contact form with server-side validation, spam protection, and email delivery.

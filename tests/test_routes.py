@@ -64,5 +64,6 @@ def test_featured_projects_link_to_confirmed_repositories_and_demo(client):
 
     assert b'href="https://github.com/shivnandan-kumar/bloodlink-flask"' in response.data
     assert b'href="https://github.com/shivnandan-kumar/egovportal"' in response.data
+    assert b'href="https://bloodlink-flask.onrender.com/"' in response.data
     assert b'href="https://egovportal-6lpv.onrender.com"' in response.data
     assert b'rel="noopener noreferrer"' in response.data

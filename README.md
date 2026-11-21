@@ -2,13 +2,15 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation and an accessible, responsive page shell with an icon-based primary navigation dock. Project and about content, contact form, SEO assets, and production deployment are still in progress.
+> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, and initial BloodLink and E-Governance project cards based on the approved PRD. Verified project links and screenshots, remaining profile content, contact form, SEO assets, and production deployment are still pending.
 
 ## Current Features
 
 - Flask application with an application factory.
 - A home route (`/`) that renders a Jinja template.
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
+- Initial BloodLink and E-Governance cards with PRD-approved summaries and technology tags.
+- Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
 - Pytest checks for the home page, navigation targets, and accessible icon labels.
@@ -22,7 +24,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Gunicorn for production serving
 - pytest for automated tests
 
-The project does not use a database, authentication, an admin panel, React, Tailwind, PostgreSQL, or SQLAlchemy.
+The portfolio site itself does not use a database, authentication, an admin panel, React, Tailwind, PostgreSQL, or SQLAlchemy. PostgreSQL is listed only as part of BloodLink's project technology stack from the PRD.
 
 ## Project Structure
 
@@ -77,7 +79,7 @@ Start the Flask development server:
 python -m flask --app app run
 ```
 
-Open <http://127.0.0.1:5000> in a browser. The current page is a placeholder while the portfolio is developed.
+Open <http://127.0.0.1:5000> in a browser. The portfolio is still being developed, and sections without confirmed content remain placeholders.
 
 To stop the server, press `Ctrl+C` in the terminal.
 
@@ -89,7 +91,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current tests check that `GET /` returns HTTP `200`, includes the expected page heading, and provides labelled icon navigation links with tooltip labels to existing sections.
+The current tests check that `GET /` returns HTTP `200`, includes the expected page heading and featured project details, and provides labelled icon navigation links with tooltip labels to existing sections.
 
 ## Application Flow
 
@@ -113,7 +115,7 @@ The planned Render web service can use:
 
 Development follows the approved product requirements and proceeds in small reviewed steps:
 
-- Add approved personal content, projects, education, and skills.
+- Add confirmed project repository/demo links and screenshots, plus approved education, skills, and About content.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization, favicon, Open Graph metadata, `sitemap.xml`, and `robots.txt`.
 - Implement the contact form with server-side validation, spam protection, and email delivery.

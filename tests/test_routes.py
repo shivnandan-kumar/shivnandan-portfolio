@@ -45,3 +45,14 @@ def test_primary_navigation_links_to_page_sections(client):
     assert b'data-tooltip="About"' in response.data
     assert b'data-tooltip="Skills"' in response.data
     assert b'data-tooltip="Contact"' in response.data
+
+
+def test_featured_projects_include_prd_approved_content(client):
+    response = client.get("/")
+
+    assert b"BloodLink" in response.data
+    assert b"blood donor search platform" in response.data
+    assert b"Supabase" in response.data
+    assert b"PostgreSQL" in response.data
+    assert b"E-Governance Complaint and Service Management Portal" in response.data
+    assert b"submit complaints and track status" in response.data

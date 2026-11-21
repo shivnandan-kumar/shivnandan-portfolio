@@ -347,6 +347,33 @@ h2 {
   font-size: 0.8rem;
 }
 
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.project-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #48434f;
+  border-radius: 0.65rem;
+  color: #f4f4f5;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.project-link:hover {
+  border-color: var(--color-accent);
+  background: rgb(184 166 255 / 10%);
+}
+
 .site-footer {
   padding-block: 2rem;
   color: var(--color-muted);
@@ -393,6 +420,10 @@ h2 {
   }
 
   .nav-list a::after {
+    transition: none;
+  }
+
+  .project-link {
     transition: none;
   }
 }

@@ -47,12 +47,22 @@ def test_primary_navigation_links_to_page_sections(client):
     assert b'data-tooltip="Contact"' in response.data
 
 
-def test_featured_projects_include_prd_approved_content(client):
+def test_featured_projects_include_confirmed_content(client):
     response = client.get("/")
 
     assert b"BloodLink" in response.data
     assert b"blood donor search platform" in response.data
-    assert b"Supabase" in response.data
-    assert b"PostgreSQL" in response.data
+    assert b"SQLite (local)" in response.data
+    assert b"Supabase PostgreSQL (production)" in response.data
     assert b"E-Governance Complaint and Service Management Portal" in response.data
     assert b"submit complaints and track status" in response.data
+    assert b"Supabase PostgreSQL" in response.data
+
+
+def test_featured_projects_link_to_confirmed_repositories_and_demo(client):
+    response = client.get("/")
+
+    assert b'href="https://github.com/shivnandan-kumar/bloodlink-flask"' in response.data
+    assert b'href="https://github.com/shivnandan-kumar/egovportal"' in response.data
+    assert b'href="https://egovportal-6lpv.onrender.com"' in response.data
+    assert b'rel="noopener noreferrer"' in response.data

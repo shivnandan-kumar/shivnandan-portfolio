@@ -2,14 +2,16 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, and initial BloodLink and E-Governance project cards based on the approved PRD. Verified project links and screenshots, remaining profile content, contact form, SEO assets, and production deployment are still pending.
+> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, and BloodLink and E-Governance project cards. Both repository links and the E-Governance demo link are included. BloodLink uses SQLite locally and Supabase PostgreSQL in production. A BloodLink demo, real project screenshots, remaining profile content, contact form, SEO assets, and portfolio deployment are still pending.
 
 ## Current Features
 
 - Flask application with an application factory.
 - A home route (`/`) that renders a Jinja template.
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
-- Initial BloodLink and E-Governance cards with PRD-approved summaries and technology tags.
+- BloodLink and E-Governance cards with confirmed summaries, technology tags, and repository links.
+- BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
+- E-Governance card links to its listed Render demo; no BloodLink demo URL is listed in its repository README.
 - Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
@@ -24,7 +26,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Gunicorn for production serving
 - pytest for automated tests
 
-The portfolio site itself does not use a database, authentication, an admin panel, React, Tailwind, PostgreSQL, or SQLAlchemy. PostgreSQL is listed only as part of BloodLink's project technology stack from the PRD.
+The portfolio site itself does not use a database, authentication, an admin panel, React, Tailwind, PostgreSQL, or SQLAlchemy. BloodLink's database stack belongs to that separate project: SQLite for local development and Supabase PostgreSQL in production.
 
 ## Project Structure
 
@@ -91,7 +93,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current tests check that `GET /` returns HTTP `200`, includes the expected page heading and featured project details, and provides labelled icon navigation links with tooltip labels to existing sections.
+The current tests check that `GET /` returns HTTP `200`, includes the expected page heading and featured project details, and provides labelled icon navigation links and confirmed project URLs.
 
 ## Application Flow
 
@@ -115,7 +117,7 @@ The planned Render web service can use:
 
 Development follows the approved product requirements and proceeds in small reviewed steps:
 
-- Add confirmed project repository/demo links and screenshots, plus approved education, skills, and About content.
+- Add a confirmed BloodLink demo URL and real project screenshots, plus approved education, skills, and About content.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization, favicon, Open Graph metadata, `sitemap.xml`, and `robots.txt`.
 - Implement the contact form with server-side validation, spam protection, and email delivery.

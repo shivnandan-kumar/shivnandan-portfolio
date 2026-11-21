@@ -67,3 +67,13 @@ def test_featured_projects_link_to_confirmed_repositories_and_demo(client):
     assert b'href="https://bloodlink-flask.onrender.com/"' in response.data
     assert b'href="https://egovportal-6lpv.onrender.com"' in response.data
     assert b'rel="noopener noreferrer"' in response.data
+
+
+def test_stylesheet_includes_phone_and_narrow_phone_layouts(client):
+    response = client.get("/static/css/styles.css")
+
+    assert response.status_code == 200
+    assert b"@media (max-width: 40rem)" in response.data
+    assert b"@media (max-width: 22rem)" in response.data
+    assert b"grid-template-columns: 1fr" in response.data
+    assert b"min-width: 320px" not in response.data

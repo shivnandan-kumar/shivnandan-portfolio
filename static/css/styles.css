@@ -19,7 +19,6 @@ html {
 }
 
 body {
-  min-width: 320px;
   margin: 0;
 }
 
@@ -407,6 +406,29 @@ h2 {
 
   .project-art {
     min-height: 11rem;
+  }
+}
+
+@media (max-width: 22rem) {
+  .nav-list {
+    gap: 0.125rem;
+    padding: 0.375rem;
+  }
+
+  .nav-list a {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .project-card-content {
+    padding: 1rem;
+  }
+
+  .project-art-label,
+  .project-art-caption {
+    left: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
   }
 }
 

@@ -9,6 +9,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Flask application with an application factory.
 - A home route (`/`) that renders a Jinja template.
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
+- Narrow-screen layout stacks project cards and compacts the navigation dock and card spacing.
 - BloodLink and E-Governance cards with confirmed summaries, technology tags, repository links, and live demos.
 - BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
 - Both project cards link to the supplied live demos.
@@ -93,7 +94,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current tests check that `GET /` returns HTTP `200`, includes the expected page heading and featured project details, and provides labelled icon navigation links and confirmed project URLs.
+The current tests check that `GET /` returns HTTP `200`, includes the expected page heading and featured project details, provides labelled icon navigation links and confirmed project URLs, and serves phone/narrow-phone responsive CSS rules.
 
 ## Application Flow
 

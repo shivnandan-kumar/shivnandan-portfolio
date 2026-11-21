@@ -16,7 +16,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - About section states the confirmed Python Flask developer role and projects; Education lists the confirmed BCA program, Sai Nath University in Ranchi, and 2026 passing year.
 - About uses a compact editorial layout beside a highlighted Education card, then stacks cleanly on phone screens.
 - Confirmed skills are grouped into Backend, Frontend, Databases, Developer tools, and Deployment & platform categories.
-- Skills groups display in a responsive grid on larger screens and stack on phones.
+- Skills use full-width category rows on larger screens and stack their labels and tags on phones.
 - Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.

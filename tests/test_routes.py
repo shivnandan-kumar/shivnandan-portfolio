@@ -74,8 +74,11 @@ def test_about_section_includes_confirmed_profile_and_education(client):
 
     assert b"I build web applications with Python and Flask." in response.data
     assert b"Bachelor of Computer Applications (BCA)" in response.data
-    assert b"Sai Nath University, Ranchi" in response.data
-    assert b"Passing year: 2026" in response.data
+    assert b"Sai Nath University" in response.data
+    assert b"Ranchi" in response.data
+    assert b"Passing year" in response.data
+    assert b">2026<" in response.data
+    assert b"education-icon" in response.data
 
 
 def test_stylesheet_includes_phone_and_narrow_phone_layouts(client):

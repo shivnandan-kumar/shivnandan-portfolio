@@ -14,7 +14,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
 - Both project cards link to the supplied live demos.
 - About section states the confirmed Python Flask developer role and projects; Education lists the confirmed BCA program, Sai Nath University in Ranchi, and 2026 passing year.
-- About uses an open editorial layout beside a highlighted Education card, then stacks cleanly on phone screens.
+- About uses a compact editorial layout beside a highlighted Education card, then stacks cleanly on phone screens.
 - Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.

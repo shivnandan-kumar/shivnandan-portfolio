@@ -11,7 +11,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
 - Narrow-screen layout stacks project cards and compacts the navigation dock and card spacing.
 - BloodLink and E-Governance cards with confirmed summaries, technology tags, repository links, and live demos.
-- BloodLink card includes responsive, lazy-loaded screenshots of its public home page and workflow. The E-Governance card keeps its abstract illustration until a suitable screenshot is available.
+- BloodLink card includes responsive, lazy-loaded JPEG screenshots of its public home page and workflow; cropping and compression reduce their combined size by about 71%. The E-Governance card keeps its abstract illustration until a suitable screenshot is available.
 - BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
 - Both project cards link to the supplied live demos.
 - About section presents the approved Python & Flask Developer introduction, backend focus, and projects; Education lists the confirmed BCA program, Sai Nath University in Ranchi, and 2026 passing year.

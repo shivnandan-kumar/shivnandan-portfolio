@@ -2,7 +2,7 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SEO foundations are in place with Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. SMTP delivery is ready for environment configuration. Real project screenshots and portfolio deployment are still pending.
+> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SEO foundations are in place with Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. Local Gmail SMTP delivery has been accepted; production environment configuration remains pending. Real project screenshots and portfolio deployment are still pending.
 
 ## Current Features
 
@@ -18,7 +18,8 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Confirmed skills are grouped into Backend, Frontend, Databases, Developer tools, and Deployment & platform categories.
 - Skills use full-width category rows on desktop, adjusted spacing and wrapping on tablets, and stacked labels and tags on phones. Skill badge hover feedback is subtle and disabled for reduced-motion preferences.
 - Contact form validates names, email addresses, and message length on the server; CSRF tokens and a hidden honeypot provide basic abuse protection.
-- Contact email is sent through configurable SMTP using Python's standard library. Delivery reports an unavailable status until the private SMTP and recipient environment variables are configured.
+- Contact email is sent through configurable SMTP using Python's standard library. SMTP failures are logged with safe stage, exception type, and status-code diagnostics, without logging credentials or message content.
+- `smtp_diagnostic.py` checks SMTP connection, TLS, and authentication without sending an email.
 - Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
@@ -42,6 +43,7 @@ The portfolio site itself does not use a database, authentication, an admin pane
 .
 |-- app.py                 # Flask application factory and routes
 |-- email_service.py       # SMTP delivery through Python's standard library
+|-- smtp_diagnostic.py     # Safe SMTP/TLS/authentication check; sends no email
 |-- forms.py               # Contact form validation and honeypot
 |-- requirements.txt       # Runtime dependencies
 |-- requirements-dev.txt   # Runtime dependencies plus pytest
@@ -134,6 +136,14 @@ The contact form reads these environment variables. Set them in Render's environ
 - `SMTP_PASSWORD`: SMTP password or provider-issued app password.
 
 Until all SMTP values are set, the form validates submissions but reports that delivery is unavailable. The recipient address is kept in environment configuration and is not rendered on the page.
+
+To diagnose SMTP locally without sending a message, set the SMTP environment variables in the same terminal session and run:
+
+```powershell
+python .\smtp_diagnostic.py
+```
+
+The diagnostic prints only stage results, exception types, and numeric SMTP status codes when available. It never prints passwords, message content, or exception messages.
 
 ## Roadmap
 

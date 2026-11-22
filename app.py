@@ -62,7 +62,11 @@ def create_app():
                         message=contact_form.message.data,
                         config=app.config,
                     )
-                except ContactDeliveryError:
+                except ContactDeliveryError as error:
+                    app.logger.error(
+                        "Contact form returned HTTP 503 (exception_type=%s)",
+                        type(error).__name__,
+                    )
                     flash(
                         "Your message could not be sent right now. Please try again later.",
                         "error",

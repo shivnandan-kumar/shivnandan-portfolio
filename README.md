@@ -23,7 +23,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Contact email is sent through configurable SMTP using Python's standard library. SMTP failures are logged with safe stage, exception type, and status-code diagnostics, without logging credentials or message content.
 - `smtp_diagnostic.py` checks SMTP connection, TLS, and authentication without sending an email.
 - E-Governance artwork remains an abstract CSS illustration; it is not presented as an actual product screenshot.
-- A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
+- A skip link, visible keyboard focus styles, and immediate section navigation that respects reduced-motion preferences.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
 - SEO description and Open Graph metadata, a lightweight SVG favicon, and dynamically generated `robots.txt` and `sitemap.xml` endpoints.
 - Pytest checks for the home page, navigation targets, and accessible icon labels.

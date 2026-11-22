@@ -81,11 +81,29 @@
 
         <div class="project-grid">
           <article class="project-card">
-            <div class="project-art project-art-bloodlink" aria-hidden="true">
-              <span class="project-art-label">HEALTHCARE PLATFORM</span>
-              <span class="project-art-mark">B</span>
-              <span class="project-art-caption">BLOODLINK</span>
-            </div>
+            <figure class="project-art project-screenshot">
+              <img
+                src="{{ url_for('static', filename='images/projects/bloodlink-home.png') }}"
+                alt="BloodLink home page showing its donor network overview."
+                width="1920"
+                height="1080"
+                loading="lazy"
+                decoding="async"
+              >
+            </figure>
+            <details class="project-screenshot-extra">
+              <summary>View BloodLink workflow screenshot</summary>
+              <figure class="project-art project-screenshot">
+                <img
+                  src="{{ url_for('static', filename='images/projects/bloodlink-how-it-works.png') }}"
+                  alt="BloodLink workflow showing detail submission, admin verification, and local matching."
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </figure>
+            </details>
             <div class="project-card-content">
               <p class="project-category">01 / Donor search</p>
               <h3>BloodLink</h3>

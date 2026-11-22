@@ -2,7 +2,7 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SEO foundations are in place with Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. Local Gmail SMTP delivery has been accepted; production environment configuration remains pending. Real project screenshots and portfolio deployment are still pending.
+> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SEO foundations are in place with Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. BloodLink screenshots are included; the E-Governance screenshot and portfolio deployment remain pending. Local Gmail SMTP delivery has been accepted; production environment configuration remains pending.
 
 ## Current Features
 
@@ -11,6 +11,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
 - Narrow-screen layout stacks project cards and compacts the navigation dock and card spacing.
 - BloodLink and E-Governance cards with confirmed summaries, technology tags, repository links, and live demos.
+- BloodLink card includes responsive, lazy-loaded screenshots of its public home page and workflow. The E-Governance card keeps its abstract illustration until a suitable screenshot is available.
 - BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
 - Both project cards link to the supplied live demos.
 - About section presents the approved Python & Flask Developer introduction, backend focus, and projects; Education lists the confirmed BCA program, Sai Nath University in Ranchi, and 2026 passing year.
@@ -20,7 +21,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Contact form validates names, email addresses, and message length on the server; CSRF tokens and a hidden honeypot provide basic abuse protection.
 - Contact email is sent through configurable SMTP using Python's standard library. SMTP failures are logged with safe stage, exception type, and status-code diagnostics, without logging credentials or message content.
 - `smtp_diagnostic.py` checks SMTP connection, TLS, and authentication without sending an email.
-- Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
+- E-Governance artwork remains an abstract CSS illustration; it is not presented as an actual product screenshot.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
 - SEO description and Open Graph metadata, a lightweight SVG favicon, and dynamically generated `robots.txt` and `sitemap.xml` endpoints.
@@ -50,7 +51,9 @@ The portfolio site itself does not use a database, authentication, an admin pane
 |-- static/
 |   |-- css/
 |   |   `-- styles.css     # Responsive layout and accessibility styles
-|   `-- favicon.svg        # Lightweight site icon
+|   |-- favicon.svg        # Lightweight site icon
+|   `-- images/
+|       `-- projects/      # Project screenshots
 |-- templates/
 |   `-- index.html         # Home page template
 `-- tests/
@@ -149,7 +152,7 @@ The diagnostic prints only stage results, exception types, and numeric SMTP stat
 
 Development follows the approved product requirements and proceeds in small reviewed steps:
 
-- Add a social sharing image and real project screenshots.
+- Add an E-Governance screenshot when the project can be captured, and create a social sharing image.
 - Refine visual details across the portfolio as sections are reviewed.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization and lazy loading for project imagery.

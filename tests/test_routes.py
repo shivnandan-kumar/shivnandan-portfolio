@@ -196,6 +196,15 @@ def test_featured_projects_include_confirmed_content(client):
     assert b"Supabase PostgreSQL" in response.data
 
 
+def test_bloodlink_screenshots_are_accessible_and_lazy_loaded(client):
+    response = client.get("/")
+
+    assert b'images/projects/bloodlink-home.png' in response.data
+    assert b'images/projects/bloodlink-how-it-works.png' in response.data
+    assert response.data.count(b'loading="lazy"') >= 2
+    assert b'BloodLink home page showing its donor network overview.' in response.data
+
+
 def test_featured_projects_link_to_confirmed_repositories_and_demo(client):
     response = client.get("/")
 

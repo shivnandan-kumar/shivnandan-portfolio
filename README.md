@@ -29,6 +29,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - A skip link, visible keyboard focus styles, and immediate section navigation that respects reduced-motion preferences.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
 - SEO description and Open Graph metadata, a lightweight SVG favicon, and dynamically generated `robots.txt` and `sitemap.xml` endpoints.
+- Open Graph and large-image social preview metadata use the portfolio portrait and project screenshots already available in the repository.
 - Pytest checks for the home page, navigation targets, and accessible icon labels.
 - Gunicorn configured as the production WSGI server for Render.
 
@@ -173,7 +174,7 @@ The diagnostic prints only stage results, exception types, and numeric SMTP stat
 
 Development follows the approved product requirements and proceeds in small reviewed steps:
 
-- Add an E-Governance screenshot when the project can be captured, and create a social sharing image.
+- Add an E-Governance screenshot when the project can be captured.
 - Refine visual details across the portfolio as sections are reviewed.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization and lazy loading for project imagery.

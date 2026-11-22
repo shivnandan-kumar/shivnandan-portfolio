@@ -10,7 +10,14 @@
     <meta property="og:title" content="{{ project.title }} | Shivnandan Kumar">
     <meta property="og:description" content="{{ project.summary }}">
     <meta property="og:url" content="{{ url_for('project_detail', slug=project.slug, _external=True) }}">
-    <meta name="twitter:card" content="summary">
+    {% if project.screenshots %}
+    <meta property="og:image" content="{{ url_for('static', filename=project.screenshots[0].src, _external=True) }}">
+    <meta property="og:image:alt" content="{{ project.screenshots[0].alt }}">
+    {% else %}
+    <meta property="og:image" content="{{ url_for('static', filename='images/shivnandan-profile.jpg', _external=True) }}">
+    <meta property="og:image:alt" content="Shivnandan Kumar's portrait against a red background.">
+    {% endif %}
+    <meta name="twitter:card" content="summary_large_image">
     <title>{{ project.title }} | Shivnandan Kumar</title>
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">

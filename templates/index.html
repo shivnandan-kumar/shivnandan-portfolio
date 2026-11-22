@@ -71,12 +71,16 @@
     <main id="main-content" tabindex="-1">
       <section class="page-section hero" id="home" aria-labelledby="home-title">
         <div class="hero-profile-card">
-          <div class="hero-profile-art" aria-hidden="true">
-            <span class="hero-profile-orbit hero-profile-orbit-one"></span>
-            <span class="hero-profile-orbit hero-profile-orbit-two"></span>
-            <span class="hero-profile-monogram">SK</span>
-            <span class="hero-profile-art-label">PYTHON <i>·</i> FLASK</span>
-          </div>
+          <figure class="hero-profile-photo">
+            <img
+              src="{{ url_for('static', filename='images/shivnandan-profile.jpg') }}"
+              alt="Portrait of Shivnandan Kumar against a red background."
+              width="1086"
+              height="1448"
+              fetchpriority="high"
+              decoding="async"
+            >
+          </figure>
           <div class="hero-profile-details">
             <p class="hero-profile-name">Shivnandan Kumar</p>
             <p>Python &amp; Flask Developer</p>

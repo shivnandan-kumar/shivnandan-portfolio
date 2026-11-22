@@ -167,73 +167,29 @@ main {
   width: min(100%, 24rem);
   justify-self: center;
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  border: 1rem solid #f4f4f5;
   border-radius: 1.5rem;
-  background: #171820;
+  background: #f4f4f5;
 }
 
-.hero-profile-art {
-  position: relative;
-  display: grid;
-  min-height: 21rem;
+.hero-profile-photo {
+  aspect-ratio: 3 / 4;
+  margin: 0;
   overflow: hidden;
-  place-items: center;
-  background: radial-gradient(ellipse at 50% 48%, rgb(184 166 255 / 21%), transparent 58%), #111318;
+  border-radius: 1rem;
+  background: #8f1019;
 }
 
-.hero-profile-art::after {
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgb(255 255 255 / 3%) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px);
-  background-size: 2rem 2rem;
-  content: "";
-  mask-image: linear-gradient(transparent, #000 25%, #000 75%, transparent);
-}
-
-.hero-profile-monogram {
-  z-index: 1;
-  color: #f4f4f5;
-  font-size: clamp(7rem, 14vw, 11rem);
-  font-weight: 700;
-  letter-spacing: -0.12em;
-  line-height: 1;
-}
-
-.hero-profile-orbit {
-  position: absolute;
-  width: 75%;
-  aspect-ratio: 1;
-  border: 1px solid rgb(184 166 255 / 25%);
-  border-radius: 50%;
-}
-
-.hero-profile-orbit-one {
-  transform: scaleY(0.52) rotate(-27deg);
-}
-
-.hero-profile-orbit-two {
-  width: 62%;
-  transform: scaleY(0.7) rotate(32deg);
-}
-
-.hero-profile-art-label {
-  position: absolute;
-  z-index: 1;
-  right: 1.25rem;
-  bottom: 1.25rem;
-  color: var(--color-muted);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-}
-
-.hero-profile-art-label i {
-  color: var(--color-accent);
-  font-style: normal;
+.hero-profile-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
 }
 
 .hero-profile-details {
-  padding: 1.5rem;
+  padding: 1.2rem 0.35rem 0.25rem;
 }
 
 .hero-profile-name {
@@ -241,11 +197,12 @@ main {
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.04em;
+  color: #111318;
 }
 
 .hero-profile-details p {
   margin-bottom: 0;
-  color: var(--color-muted);
+  color: #52525b;
 }
 
 .hero-copy {
@@ -378,8 +335,8 @@ h2 {
     grid-row: 2;
   }
 
-  .hero-profile-art {
-    min-height: clamp(15rem, 65vw, 21rem);
+  .hero-profile-card {
+    border-width: 0.75rem;
   }
 }
 

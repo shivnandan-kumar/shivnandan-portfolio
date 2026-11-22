@@ -15,6 +15,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Dedicated `/projects/bloodlink` and `/projects/egovernance` case-study pages with feature descriptions and technology lists extracted from each project's public README.
 - BloodLink card includes responsive, lazy-loaded JPEG screenshots of its public home page and workflow; cropping and compression reduce their combined size by about 71%. The E-Governance card keeps its abstract illustration until a suitable screenshot is available.
 - Footer links to the GitHub and LinkedIn profiles listed in the public project repository.
+- Hero displays the confirmed “Open to work” status and provides a downloadable resume PDF.
 - BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
 - Both project cards link to the supplied live demos.
 - About section presents the approved Python & Flask Developer introduction, backend focus, and projects; Education lists the confirmed BCA program, Sai Nath University in Ranchi, and 2026 passing year.
@@ -54,6 +55,8 @@ The portfolio site itself does not use a database, authentication, an admin pane
 |-- requirements.txt       # Runtime dependencies
 |-- requirements-dev.txt   # Runtime dependencies plus pytest
 |-- static/
+|   |-- documents/
+|   |   `-- shivnandan-kumar-resume.pdf # Downloadable resume
 |   |-- css/
 |   |   `-- styles.css     # Responsive layout and accessibility styles
 |   |-- favicon.svg        # Lightweight site icon

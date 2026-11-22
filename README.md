@@ -2,7 +2,7 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SMTP delivery is ready for environment configuration. Real project screenshots, SEO assets, and portfolio deployment are still pending.
+> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SEO foundations are in place with Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. SMTP delivery is ready for environment configuration. Real project screenshots and portfolio deployment are still pending.
 
 ## Current Features
 
@@ -22,6 +22,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Abstract CSS project artwork; it is decorative and does not represent actual product screenshots.
 - A skip link, visible keyboard focus styles, and reduced-motion handling for smooth scrolling.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
+- SEO description and Open Graph metadata, a lightweight SVG favicon, and dynamically generated `robots.txt` and `sitemap.xml` endpoints.
 - Pytest checks for the home page, navigation targets, and accessible icon labels.
 - Gunicorn included as the planned production WSGI server.
 
@@ -45,8 +46,9 @@ The portfolio site itself does not use a database, authentication, an admin pane
 |-- requirements.txt       # Runtime dependencies
 |-- requirements-dev.txt   # Runtime dependencies plus pytest
 |-- static/
-|   `-- css/
-|       `-- styles.css     # Responsive layout and accessibility styles
+|   |-- css/
+|   |   `-- styles.css     # Responsive layout and accessibility styles
+|   `-- favicon.svg        # Lightweight site icon
 |-- templates/
 |   `-- index.html         # Home page template
 `-- tests/
@@ -109,7 +111,7 @@ The current tests check public page content and navigation, responsive CSS, and 
 1. Flask creates the application through `create_app()` in `app.py`.
 2. A browser requests `/`.
 3. The `home` route renders `templates/index.html`.
-4. Flask returns the rendered HTML to the browser.
+4. Flask returns the rendered HTML to the browser. `/robots.txt` and `/sitemap.xml` are generated from the current site host.
 
 The same application object is exposed as `app` for the production server.
 
@@ -137,10 +139,10 @@ Until all SMTP values are set, the form validates submissions but reports that d
 
 Development follows the approved product requirements and proceeds in small reviewed steps:
 
-- Add real project screenshots.
+- Add a social sharing image and real project screenshots.
 - Refine visual details across the portfolio as sections are reviewed.
 - Create the responsive visual design and accessible interactions.
-- Add image optimization, favicon, Open Graph metadata, `sitemap.xml`, and `robots.txt`.
+- Add image optimization and lazy loading for project imagery.
 - Configure SMTP credentials in Render and verify an actual delivery.
 - Configure and verify Render deployment.
 

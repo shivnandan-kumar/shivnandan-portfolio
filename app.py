@@ -3,7 +3,7 @@
 import os
 import secrets
 
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask, Response, flash, redirect, render_template, request, url_for
 
 from email_service import ContactDeliveryError, send_contact_message
 from forms import ContactForm
@@ -25,6 +25,25 @@ def create_app():
         SMTP_USERNAME=os.environ.get("SMTP_USERNAME", ""),
         SMTP_PASSWORD=os.environ.get("SMTP_PASSWORD", ""),
     )
+
+    @app.get("/robots.txt")
+    def robots_txt():
+        """Tell crawlers the site is public and provide its sitemap URL."""
+        sitemap_url = url_for("sitemap_xml", _external=True)
+        content = f"User-agent: *\nAllow: /\nSitemap: {sitemap_url}\n"
+        return Response(content, mimetype="text/plain")
+
+    @app.get("/sitemap.xml")
+    def sitemap_xml():
+        """Publish the canonical URL for this single-page portfolio."""
+        page_url = url_for("home", _external=True)
+        content = (
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            f"<url><loc>{page_url}</loc></url>"
+            "</urlset>"
+        )
+        return Response(content, mimetype="application/xml")
 
     @app.route("/", methods=["GET", "POST"])
     def home():

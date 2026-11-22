@@ -9,7 +9,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Flask application with an application factory.
 - A home route (`/`) that renders a Jinja template.
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
-- A reference-inspired portfolio hero with Shivnandan Kumar's supplied portrait in a red monochrome treatment and white photo frame, confirmed Python & Flask profile copy, and clear project/contact links.
+- A reference-inspired portfolio hero with a compact white-framed red portrait card, high-impact two-line developer headline, centered icon navigation, confirmed profile copy, and project/contact links.
 - Narrow-screen layout stacks project cards and compacts the navigation dock and card spacing.
 - BloodLink and E-Governance cards with confirmed summaries, technology tags, repository links, and live demos.
 - BloodLink card includes responsive, lazy-loaded JPEG screenshots of its public home page and workflow; cropping and compression reduce their combined size by about 71%. The E-Governance card keeps its abstract illustration until a suitable screenshot is available.

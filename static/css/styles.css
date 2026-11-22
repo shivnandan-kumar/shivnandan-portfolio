@@ -75,6 +75,7 @@ main {
   font-weight: 700;
   letter-spacing: -0.03em;
   text-decoration: none;
+  display: none;
 }
 
 .nav-list {
@@ -156,7 +157,7 @@ main {
   position: relative;
   display: grid;
   min-height: min(48rem, calc(100svh - 5.5rem));
-  grid-template-columns: minmax(16rem, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: minmax(16rem, 0.78fr) minmax(0, 1.22fr);
   align-items: center;
   gap: clamp(2rem, 6vw, 5rem);
   overflow: hidden;
@@ -164,16 +165,16 @@ main {
 }
 
 .hero-profile-card {
-  width: min(100%, 24rem);
+  width: min(100%, 21rem);
   justify-self: center;
   overflow: hidden;
-  border: 1rem solid #f4f4f5;
+  padding: 1.4rem 1.4rem 1rem;
   border-radius: 1.5rem;
   background: #f4f4f5;
 }
 
 .hero-profile-photo {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 5 / 6;
   margin: 0;
   overflow: hidden;
   border-radius: 1rem;
@@ -189,7 +190,7 @@ main {
 }
 
 .hero-profile-details {
-  padding: 1.2rem 0.35rem 0.25rem;
+  padding: 1.1rem 0.25rem 0.2rem;
 }
 
 .hero-profile-name {
@@ -211,19 +212,21 @@ main {
 }
 
 .hero-copy h1 {
-  max-width: 10ch;
+  max-width: none;
   margin-bottom: 1.5rem;
-  font-size: clamp(3.5rem, 8.3vw, 7rem);
-  line-height: 0.98;
+  font-size: clamp(3rem, 5.3vw, 5.6rem);
+  line-height: 0.94;
+  text-transform: uppercase;
 }
 
 .hero-copy h1 span {
-  color: var(--color-accent);
+  display: block;
+  color: #68646e;
 }
 
 .hero-copy .section-note {
-  max-width: 39rem;
-  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  max-width: 43rem;
+  font-size: clamp(1.05rem, 1.45vw, 1.25rem);
 }
 
 .hero-actions {
@@ -326,18 +329,19 @@ h2 {
   }
 
   .hero-copy h1 {
-    max-width: 11ch;
-    font-size: clamp(3.25rem, 13vw, 5.5rem);
+    font-size: clamp(2rem, 9vw, 4.8rem);
   }
 
   .hero-profile-card {
-    width: min(100%, 24rem);
+    width: min(100%, 21rem);
     grid-row: 2;
+    padding: 1rem 1rem 0.8rem;
   }
 
-  .hero-profile-card {
-    border-width: 0.75rem;
+  .hero-copy {
+    grid-row: 1;
   }
+
 }
 
 .about-grid {

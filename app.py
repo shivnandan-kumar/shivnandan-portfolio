@@ -3,10 +3,11 @@
 import os
 import secrets
 
-from flask import Flask, Response, flash, redirect, render_template, request, url_for
+from flask import Flask, Response, abort, flash, redirect, render_template, request, url_for
 
 from email_service import ContactDeliveryError, send_contact_message
 from forms import ContactForm
+from project_data import PROJECTS
 
 
 def create_app():
@@ -35,15 +36,28 @@ def create_app():
 
     @app.get("/sitemap.xml")
     def sitemap_xml():
-        """Publish the canonical URL for this single-page portfolio."""
+        """Publish canonical portfolio and project detail URLs."""
         page_url = url_for("home", _external=True)
+        project_urls = "".join(
+            f"<url><loc>{url_for('project_detail', slug=slug, _external=True)}</loc></url>"
+            for slug in PROJECTS
+        )
         content = (
             '<?xml version="1.0" encoding="UTF-8"?>'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             f"<url><loc>{page_url}</loc></url>"
+            f"{project_urls}"
             "</urlset>"
         )
         return Response(content, mimetype="application/xml")
+
+    @app.get("/projects/<slug>")
+    def project_detail(slug):
+        """Render a project detail page for a known portfolio project."""
+        project = PROJECTS.get(slug)
+        if project is None:
+            abort(404)
+        return render_template("project_detail.html", project=project)
 
     @app.route("/", methods=["GET", "POST"])
     def home():

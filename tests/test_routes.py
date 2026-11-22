@@ -215,6 +215,44 @@ def test_featured_projects_link_to_confirmed_repositories_and_demo(client):
     assert b'rel="noopener noreferrer"' in response.data
 
 
+@pytest.mark.parametrize(
+    ("slug", "expected_text"),
+    [
+        ("bloodlink", b"Pincode-first matching with a city fallback."),
+        ("egovernance", b"Complaint status tracking and history timeline."),
+    ],
+)
+def test_project_detail_pages_show_confirmed_case_study_content(client, slug, expected_text):
+    response = client.get(f"/projects/{slug}")
+
+    assert response.status_code == 200
+    assert expected_text in response.data
+    assert b"Key features" in response.data
+    assert b"Technology" in response.data
+    assert b"View source on GitHub" in response.data
+
+
+def test_unknown_project_detail_returns_not_found(client):
+    response = client.get("/projects/not-a-project")
+
+    assert response.status_code == 404
+
+
+def test_sitemap_lists_project_case_study_pages(client):
+    response = client.get("/sitemap.xml")
+
+    assert response.status_code == 200
+    assert b"/projects/bloodlink" in response.data
+    assert b"/projects/egovernance" in response.data
+
+
+def test_home_page_links_to_verified_social_profiles(client):
+    response = client.get("/")
+
+    assert b'href="https://github.com/shivnandan-kumar"' in response.data
+    assert b'href="https://linkedin.com/in/shivnandan-kumar-27804b3a9"' in response.data
+
+
 def test_about_section_includes_confirmed_profile_and_education(client):
     response = client.get("/")
     page = " ".join(response.get_data(as_text=True).split())

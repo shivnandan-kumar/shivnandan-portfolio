@@ -768,6 +768,163 @@ h2 {
   background: rgb(217 145 112 / 10%);
 }
 
+.project-link-primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #251811;
+}
+
+.project-link-primary:hover {
+  background: #e7a081;
+}
+
+.project-detail-header {
+  display: flex;
+  width: min(100% - 2rem, 72rem);
+  min-height: 5.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-inline: auto;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-detail-header .site-brand {
+  display: inline;
+}
+
+.detail-back-link,
+.project-detail-footer a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.detail-back-link:hover,
+.project-detail-footer a:hover {
+  color: var(--color-accent);
+}
+
+.project-detail-hero {
+  padding-block: clamp(4rem, 9vw, 7rem) clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-detail-hero h1 {
+  max-width: 18ch;
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  line-height: 0.98;
+}
+
+.project-detail-summary {
+  max-width: 46rem;
+  margin-bottom: 0;
+  color: var(--color-muted);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.65;
+}
+
+.project-detail-hero .project-links {
+  margin-top: 1.75rem;
+}
+
+.project-detail-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+}
+
+.project-detail-screenshot {
+  min-width: 0;
+  margin: 0;
+  padding: 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: #1d1916;
+}
+
+.project-detail-screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.6rem;
+}
+
+.project-detail-screenshot figcaption {
+  padding: 0.75rem 0.3rem 0.2rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.project-detail-art {
+  position: relative;
+  display: grid;
+  min-height: clamp(18rem, 40vw, 30rem);
+  margin-block: clamp(2rem, 5vw, 3.5rem);
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+}
+
+.project-detail-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-detail-content h2,
+.project-detail-stack h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+}
+
+.project-detail-content .section-note {
+  font-size: 1.05rem;
+}
+
+.project-feature-list {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  color: var(--color-muted);
+  line-height: 1.6;
+  list-style: none;
+}
+
+.project-feature-list li {
+  position: relative;
+  padding-left: 1.3rem;
+}
+
+.project-feature-list li::before {
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  content: "";
+}
+
+.project-detail-stack {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1.3fr);
+  align-items: start;
+  gap: 2rem;
+  padding-block: clamp(3rem, 7vw, 5rem);
+}
+
+.project-detail-stack .technology-list {
+  margin-top: 0;
+}
+
 .contact-notices,
 .contact-form {
   max-width: 48rem;
@@ -874,12 +1031,23 @@ h2 {
 }
 
 .site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding-block: 2rem;
   color: var(--color-muted);
 }
 
 .site-footer p {
   margin-bottom: 0;
+}
+
+.social-links,
+.project-detail-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 @media (min-width: 40.01rem) and (max-width: 56rem) {
@@ -919,6 +1087,29 @@ h2 {
 
   .project-grid {
     grid-template-columns: 1fr;
+  }
+
+  .project-detail-header {
+    min-height: 4.5rem;
+  }
+
+  .project-detail-header .site-brand {
+    font-size: 0.9rem;
+  }
+
+  .project-detail-gallery,
+  .project-detail-content,
+  .project-detail-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .project-detail-stack {
+    gap: 0.75rem;
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .contact-form {

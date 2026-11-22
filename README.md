@@ -2,7 +2,7 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The repository contains the Flask foundation, accessible responsive navigation, BloodLink and E-Governance project cards, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SEO foundations are in place with Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. BloodLink screenshots are included; the E-Governance screenshot and portfolio deployment remain pending. Local Gmail SMTP delivery has been accepted; production environment configuration remains pending.
+> **Project status:** The portfolio includes responsive case-study pages for BloodLink and E-Governance, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SEO foundations include Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. The Render Blueprint is prepared; creating the Render service and entering its private SMTP values remain manual steps. BloodLink screenshots are included; E-Governance screenshots are not available in its repository.
 
 ## Current Features
 
@@ -12,7 +12,9 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - A warm near-black and brown portfolio theme with restrained copper accents, a white-framed red portrait, high-impact two-line developer headline, centered icon navigation, and responsive confirmed profile copy.
 - Narrow-screen layout stacks project cards and compacts the navigation dock and card spacing.
 - BloodLink and E-Governance cards with confirmed summaries, technology tags, repository links, and live demos.
+- Dedicated `/projects/bloodlink` and `/projects/egovernance` case-study pages with feature descriptions and technology lists extracted from each project's public README.
 - BloodLink card includes responsive, lazy-loaded JPEG screenshots of its public home page and workflow; cropping and compression reduce their combined size by about 71%. The E-Governance card keeps its abstract illustration until a suitable screenshot is available.
+- Footer links to the GitHub and LinkedIn profiles listed in the public project repository.
 - BloodLink stack is labeled as SQLite for local development and Supabase PostgreSQL for production.
 - Both project cards link to the supplied live demos.
 - About section presents the approved Python & Flask Developer introduction, backend focus, and projects; Education lists the confirmed BCA program, Sai Nath University in Ranchi, and 2026 passing year.
@@ -27,7 +29,7 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
 - SEO description and Open Graph metadata, a lightweight SVG favicon, and dynamically generated `robots.txt` and `sitemap.xml` endpoints.
 - Pytest checks for the home page, navigation targets, and accessible icon labels.
-- Gunicorn included as the planned production WSGI server.
+- Gunicorn configured as the production WSGI server for Render.
 
 ## Technology
 
@@ -44,6 +46,8 @@ The portfolio site itself does not use a database, authentication, an admin pane
 ```text
 .
 |-- app.py                 # Flask application factory and routes
+|-- project_data.py        # Confirmed project case-study content
+|-- render.yaml            # Render web service and environment variable blueprint
 |-- email_service.py       # SMTP delivery through Python's standard library
 |-- smtp_diagnostic.py     # Safe SMTP/TLS/authentication check; sends no email
 |-- forms.py               # Contact form validation and honeypot
@@ -56,7 +60,8 @@ The portfolio site itself does not use a database, authentication, an admin pane
 |   `-- images/
 |       `-- projects/      # Project screenshots
 |-- templates/
-|   `-- index.html         # Home page template
+|   |-- index.html         # Home page template
+|   `-- project_detail.html # Shared case-study page template
 `-- tests/
     `-- test_routes.py     # Tests for public Flask routes
 ```
@@ -98,7 +103,7 @@ Start the Flask development server:
 python -m flask --app app run
 ```
 
-Open <http://127.0.0.1:5000> in a browser. The portfolio is still being developed, and sections without confirmed content remain placeholders.
+Open <http://127.0.0.1:5000> in a browser. The project case studies are available at `/projects/bloodlink` and `/projects/egovernance`.
 
 To stop the server, press `Ctrl+C` in the terminal.
 
@@ -116,19 +121,31 @@ The current tests check public page content and navigation, responsive CSS, and 
 
 1. Flask creates the application through `create_app()` in `app.py`.
 2. A browser requests `/`.
-3. The `home` route renders `templates/index.html`.
-4. Flask returns the rendered HTML to the browser. `/robots.txt` and `/sitemap.xml` are generated from the current site host.
+3. The `home` route renders `templates/index.html`; `/projects/<slug>` renders a known project case study.
+4. Flask returns the rendered HTML to the browser. `/robots.txt` and `/sitemap.xml` are generated from the current site host and include the project case studies.
 
 The same application object is exposed as `app` for the production server.
 
 ## Render Deployment
 
-The planned Render web service can use:
+The repository includes a `render.yaml` Blueprint for the Flask web service:
 
 - **Build command:** `pip install -r requirements.txt`
-- **Start command:** `gunicorn app:app`
+- **Start command:** `gunicorn app:app --bind 0.0.0.0:$PORT`
 
-`app:app` means "load the `app` object from the `app.py` module." Deployment has not been completed yet.
+`app:app` means "load the `app` object from the `app.py` module." The Blueprint generates `SECRET_KEY` and prompts for private SMTP values without placing credentials in source control.
+
+Render Free web services block outbound SMTP ports `25`, `465`, and `587`. The portfolio can run on Free, but contact email through the current Gmail SMTP setup requires a paid web service. The Blueprint does not select a paid plan; choose one in Render only after reviewing its price.
+
+To create the service:
+
+1. Sign in to Render and choose **New → Blueprint**.
+2. Connect `shivnandan-kumar/shivnandan-portfolio` and select the branch containing `render.yaml`.
+3. Review the proposed web service and provide the requested values for `CONTACT_RECIPIENT`, `SMTP_USERNAME`, and `SMTP_PASSWORD` in Render's private dashboard prompt.
+4. Create the Blueprint and wait for the first deploy to finish.
+5. Open the generated `onrender.com` URL and check the home page, project pages, and contact form.
+
+Do not paste SMTP credentials into chat or commit them to Git. Render Blueprint creation and the final live smoke-check require access to your Render account and are not performed by a repository push.
 
 The contact form reads these environment variables. Set them in Render's environment settings; keep credentials out of source control:
 

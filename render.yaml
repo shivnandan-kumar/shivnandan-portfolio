@@ -1,6 +1,6 @@
 services:
   # The plan is intentionally omitted; choose a paid plan only if you approve its cost.
-  # Render Free blocks outbound SMTP ports, so the contact form needs a paid plan to use Gmail SMTP.
+  # The browser submits contact messages directly to Web3Forms.
   - type: web
     name: shivnandan-portfolio
     runtime: python
@@ -10,13 +10,5 @@ services:
     envVars:
       - key: SECRET_KEY
         generateValue: true
-      - key: CONTACT_RECIPIENT
-        sync: false
-      - key: SMTP_HOST
-        value: smtp.gmail.com
-      - key: SMTP_PORT
-        value: "587"
-      - key: SMTP_USERNAME
-        sync: false
-      - key: SMTP_PASSWORD
+      - key: WEB3FORMS_ACCESS_KEY
         sync: false

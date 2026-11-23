@@ -12,11 +12,7 @@ def client():
     app = create_app()
     app.config.update(
         TESTING=True,
-        WTF_CSRF_ENABLED=False,
-        CONTACT_RECIPIENT="",
-        SMTP_HOST="",
-        SMTP_USERNAME="",
-        SMTP_PASSWORD="",
+        WEB3FORMS_ACCESS_KEY="test-public-key-placeholder",
     )
 
     with app.test_client() as test_client:
@@ -30,85 +26,52 @@ def test_home_page_returns_successful_response(client):
     assert b"Shivnandan Kumar" in response.data
 
 
-def test_contact_form_renders_accessible_fields_and_csrf_token(client):
+def test_contact_form_renders_web3forms_fields_and_accessible_controls(client):
     response = client.get("/")
 
     assert response.status_code == 200
-    assert b'action="/#contact"' in response.data
+    assert b'action="https://api.web3forms.com/submit"' not in response.data
+    assert b'method="post"' not in response.data
+    assert b'<button class="contact-submit" type="button">' in response.data
+    assert b'Send message <span class="contact-submit-arrow" aria-hidden="true">' in response.data
+    assert b"Please enable JavaScript to send a message." in response.data
+    assert b'name="access_key" value="test-public-key-placeholder"' in response.data
     assert b'id="contact-name"' in response.data
     assert b'id="contact-email"' in response.data
     assert b'id="contact-message"' in response.data
     assert b'aria-hidden="true"' in response.data
     assert b'name="website"' in response.data
+    assert b'minlength="20"' in response.data
+    assert b'id="contact-status"' in response.data
+    assert b'/static/js/contact-form.js' in response.data
 
 
-def test_contact_form_rejects_invalid_email_and_short_message(client):
-    response = client.post(
-        "/",
-        data={"name": "Visitor", "email": "not-an-email", "message": "Too short"},
-    )
+def test_contact_submission_no_longer_posts_to_flask_or_uses_csrf_token(client):
+    page = client.get("/")
+    response = client.post("/", data={"message": "form submission bypasses Flask"})
 
-    assert response.status_code == 400
-    assert b"Enter a valid email address." in response.data
-    assert b"Message must be between 20 and 3000 characters." in response.data
+    assert b'name="csrf_token"' not in page.data
+    assert response.status_code == 405
 
 
-def test_valid_contact_form_sends_message_and_confirms_success(client, monkeypatch):
-    sent = {}
-
-    def capture_message(**message):
-        sent.update(message)
-
-    monkeypatch.setattr("app.send_contact_message", capture_message)
-    response = client.post(
-        "/",
-        data={
-            "name": "A Visitor",
-            "email": "visitor@example.com",
-            "message": "Hello, I would like to discuss a project.",
-        },
-        follow_redirects=True,
-    )
+def test_web3forms_client_script_validates_honeypot_and_handles_api_results(client):
+    response = client.get("/static/js/contact-form.js")
+    script = response.get_data(as_text=True)
 
     assert response.status_code == 200
-    assert b"Your message has been sent." in response.data
-    assert sent["name"] == "A Visitor"
-    assert sent["sender_email"] == "visitor@example.com"
-    assert sent["message"] == "Hello, I would like to discuss a project."
-
-
-def test_contact_honeypot_discards_bot_submission(client, monkeypatch):
-    def unexpected_send(**_message):
-        pytest.fail("Honeypot submission must not be sent.")
-
-    monkeypatch.setattr("app.send_contact_message", unexpected_send)
-    response = client.post(
-        "/",
-        data={
-            "name": "Bot",
-            "email": "bot@example.com",
-            "message": "Automated message pretending to be a visitor.",
-            "website": "http://spam.example",
-        },
-    )
-
-    assert response.status_code == 302
-    assert response.headers["Location"].endswith("#contact")
-
-
-def test_contact_form_reports_unconfigured_delivery_without_false_success(client):
-    response = client.post(
-        "/",
-        data={
-            "name": "A Visitor",
-            "email": "visitor@example.com",
-            "message": "Hello, I would like to discuss a project.",
-        },
-    )
-
-    assert response.status_code == 503
-    assert b"could not be sent right now" in response.data
-    assert b"Your message has been sent." not in response.data
+    assert 'fetch("https://api.web3forms.com/submit"' in script
+    assert '"Content-Type": "application/json"' in script
+    assert 'form.reportValidity()' in script
+    assert 'form.querySelector(\'[name="website"]\')' in script
+    assert 'form.querySelector(".contact-submit")' in script
+    assert 'if (honeypot.value.trim()) return;' in script
+    assert 'submitButton.type = "submit";' in script
+    assert script.index('form.addEventListener("submit"') < script.index('submitButton.type = "submit";')
+    assert 'result.success !== true' in script
+    assert 'controller.abort(), 15000' in script
+    assert "Your message could not be sent right now. Please try again later." in script
+    assert "Thanks for reaching out. Your message has been sent." in script
+    assert '"csrf_token"' not in script
 
 
 def test_smtp_delivery_uses_starttls_and_keeps_message_plain_text(monkeypatch):
@@ -140,34 +103,15 @@ def test_smtp_delivery_uses_starttls_and_keeps_message_plain_text(monkeypatch):
     assert "Hello, I would like to discuss a project." in sent_email.get_content()
 
 
-def test_contact_form_rejects_missing_csrf_token():
-    app = create_app()
-    app.config.update(TESTING=True)
-
-    with app.test_client() as csrf_client:
-        page = csrf_client.get("/")
-        response = csrf_client.post(
-            "/",
-            data={
-                "name": "A Visitor",
-                "email": "visitor@example.com",
-                "message": "Hello, I would like to discuss a project.",
-            },
-        )
-
-    assert b'name="csrf_token"' in page.data
-    assert response.status_code == 400
-
-
-def test_primary_navigation_links_to_page_sections(client):
+def test_primary_navigation_links_to_standalone_pages(client):
     response = client.get("/")
 
     assert b'<nav aria-label="Primary navigation">' in response.data
-    assert b'href="#home"' in response.data
-    assert b'href="#projects"' in response.data
-    assert b'href="#about"' in response.data
-    assert b'href="#skills"' in response.data
-    assert b'href="#contact"' in response.data
+    assert b'href="/"' in response.data
+    assert b'href="/projects"' in response.data
+    assert b'href="/about"' in response.data
+    assert b'href="/skills"' in response.data
+    assert b'href="/contact"' in response.data
     assert b'id="projects"' in response.data
     assert b'id="about"' in response.data
     assert b'id="skills"' in response.data

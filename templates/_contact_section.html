@@ -1,0 +1,31 @@
+<section class="page-section" id="contact" aria-labelledby="contact-title">
+  <p class="eyebrow">Get in touch</p>
+  <h2 id="contact-title">Contact</h2>
+  <p class="section-note">Use the form below to send me a message.</p>
+  <div class="contact-notices" id="contact-status" aria-live="polite" hidden></div>
+  <form class="contact-form" id="contact-form">
+    <input type="hidden" name="access_key" value="{{ web3forms_access_key }}">
+    <input type="hidden" name="subject" value="New portfolio contact message">
+    <input type="hidden" name="from_name" value="Shivnandan Kumar">
+    <div class="contact-honeypot" aria-hidden="true">{{ contact_form.website.label }}{{ contact_form.website(autocomplete="off", tabindex="-1") }}</div>
+    <div class="contact-field">
+      <label for="contact-name">Name</label>
+      {{ contact_form.name(id="contact-name", class="contact-control", autocomplete="name", maxlength="80", required=true, aria_describedby="contact-name-errors") }}
+      {% if contact_form.name.errors %}<ul class="contact-errors" id="contact-name-errors" role="alert">{% for error in contact_form.name.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+    <div class="contact-field">
+      <label for="contact-email">Email</label>
+      {{ contact_form.email(id="contact-email", class="contact-control", type="email", autocomplete="email", maxlength="254", required=true, aria_describedby="contact-email-errors") }}
+      {% if contact_form.email.errors %}<ul class="contact-errors" id="contact-email-errors" role="alert">{% for error in contact_form.email.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+    <div class="contact-field contact-field-message">
+      <label for="contact-message">Message</label>
+      {{ contact_form.message(id="contact-message", class="contact-control contact-message-control", rows="6", minlength="20", maxlength="3000", required=true, aria_describedby="contact-message-errors") }}
+      {% if contact_form.message.errors %}<ul class="contact-errors" id="contact-message-errors" role="alert">{% for error in contact_form.message.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+    <button class="contact-submit" type="button">
+      Send message <span class="contact-submit-arrow" aria-hidden="true">→</span>
+    </button>
+  </form>
+  <noscript><p class="contact-notice contact-notice-error" role="alert">Please enable JavaScript to send a message.</p></noscript>
+</section>

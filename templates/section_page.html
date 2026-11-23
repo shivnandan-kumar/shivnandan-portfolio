@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141210">
+    <meta name="description" content="{{ page_title }} — Shivnandan Kumar, Python and Flask Developer.">
+    <title>{{ page_title }} | Shivnandan Kumar</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    {% include "_site_header.html" %}
+    <main class="standalone-page-main" id="main-content" tabindex="-1">
+      {% include section_template %}
+    </main>
+    <footer class="site-footer">
+      <p>Shivnandan Kumar</p>
+      {% include "_social_links.html" %}
+    </footer>
+    <script src="{{ url_for('static', filename='js/scroll-reveal.js') }}" defer></script>
+    {% if active_page == 'contact' %}<script src="{{ url_for('static', filename='js/contact-form.js') }}" defer></script>{% endif %}
+  </body>
+</html>

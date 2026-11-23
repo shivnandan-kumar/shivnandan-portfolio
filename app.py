@@ -3,9 +3,8 @@
 import os
 import secrets
 
-from flask import Flask, Response, abort, flash, redirect, render_template, request, url_for
+from flask import Flask, Response, abort, render_template, url_for
 
-from email_service import ContactDeliveryError, send_contact_message
 from forms import ContactForm
 from project_data import PROJECTS
 
@@ -20,11 +19,7 @@ def create_app():
     app.config.update(
         SECRET_KEY=secret_key or secrets.token_urlsafe(32),
         MAX_CONTENT_LENGTH=16 * 1024,
-        CONTACT_RECIPIENT=os.environ.get("CONTACT_RECIPIENT", ""),
-        SMTP_HOST=os.environ.get("SMTP_HOST", ""),
-        SMTP_PORT=int(os.environ.get("SMTP_PORT", "587")),
-        SMTP_USERNAME=os.environ.get("SMTP_USERNAME", ""),
-        SMTP_PASSWORD=os.environ.get("SMTP_PASSWORD", ""),
+        WEB3FORMS_ACCESS_KEY=os.environ.get("WEB3FORMS_ACCESS_KEY", ""),
     )
 
     @app.get("/robots.txt")
@@ -36,8 +31,11 @@ def create_app():
 
     @app.get("/sitemap.xml")
     def sitemap_xml():
-        """Publish canonical portfolio and project detail URLs."""
-        page_url = url_for("home", _external=True)
+        """Publish canonical portfolio pages and project detail URLs."""
+        page_urls = "".join(
+            f"<url><loc>{url_for(endpoint, _external=True)}</loc></url>"
+            for endpoint in ("home", "projects_page", "about_page", "skills_page", "contact_page")
+        )
         project_urls = "".join(
             f"<url><loc>{url_for('project_detail', slug=slug, _external=True)}</loc></url>"
             for slug in PROJECTS
@@ -45,7 +43,7 @@ def create_app():
         content = (
             '<?xml version="1.0" encoding="UTF-8"?>'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-            f"<url><loc>{page_url}</loc></url>"
+            f"{page_urls}"
             f"{project_urls}"
             "</urlset>"
         )
@@ -59,40 +57,41 @@ def create_app():
             abort(404)
         return render_template("project_detail.html", project=project)
 
-    @app.route("/", methods=["GET", "POST"])
+    @app.get("/projects")
+    def projects_page():
+        """Render the featured projects as a standalone page."""
+        return render_template("projects.html")
+
+    @app.get("/about")
+    def about_page():
+        """Render the profile and education page."""
+        return render_template("section_page.html", page_title="About", section_template="_about_section.html", active_page="about")
+
+    @app.get("/skills")
+    def skills_page():
+        """Render the skills page."""
+        return render_template("section_page.html", page_title="Skills", section_template="_skills_section.html", active_page="skills")
+
+    @app.get("/contact")
+    def contact_page():
+        """Render the contact page."""
+        return render_template(
+            "section_page.html",
+            page_title="Contact",
+            section_template="_contact_section.html",
+            active_page="contact",
+            contact_form=ContactForm(),
+            web3forms_access_key=app.config["WEB3FORMS_ACCESS_KEY"],
+        )
+
+    @app.get("/")
     def home():
         """Render the portfolio home page."""
-        contact_form = ContactForm()
-
-        if request.method == "POST":
-            if contact_form.website.data:
-                return redirect(url_for("home", _anchor="contact"))
-
-            if contact_form.validate_on_submit():
-                try:
-                    send_contact_message(
-                        name=contact_form.name.data,
-                        sender_email=contact_form.email.data,
-                        message=contact_form.message.data,
-                        config=app.config,
-                    )
-                except ContactDeliveryError as error:
-                    app.logger.error(
-                        "Contact form returned HTTP 503 (exception_type=%s)",
-                        type(error).__name__,
-                    )
-                    flash(
-                        "Your message could not be sent right now. Please try again later.",
-                        "error",
-                    )
-                    return render_template("index.html", contact_form=contact_form), 503
-
-                flash("Thanks for reaching out. Your message has been sent.", "success")
-                return redirect(url_for("home", _anchor="contact"))
-
-            return render_template("index.html", contact_form=contact_form), 400
-
-        return render_template("index.html", contact_form=contact_form)
+        return render_template(
+            "index.html",
+            contact_form=ContactForm(),
+            web3forms_access_key=app.config["WEB3FORMS_ACCESS_KEY"],
+        )
 
     return app
 

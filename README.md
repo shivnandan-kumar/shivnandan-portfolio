@@ -2,15 +2,16 @@
 
 A personal portfolio project for presenting Shivnandan Kumar's development work, skills, education, and contact information. The site is being built incrementally with Flask and a lightweight frontend.
 
-> **Project status:** The portfolio includes responsive case-study pages for BloodLink and E-Governance, confirmed About and Education details, categorized skills, and a validated contact form with CSRF and honeypot protection. SEO foundations include Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. The Render Blueprint is prepared; creating the Render service and entering its private SMTP values remain manual steps. BloodLink screenshots are included; E-Governance screenshots are not available in its repository.
+> **Project status:** The portfolio includes responsive case-study pages for BloodLink and E-Governance, confirmed About and Education details, categorized skills, and a client-side Web3Forms contact form with required-field validation and a honeypot. SEO foundations include Open Graph metadata, an SVG favicon, and dynamic `robots.txt` and `sitemap.xml` routes. The Render Blueprint is prepared; Render setup and testing the contact form on the live domain remain manual steps. BloodLink screenshots are included; E-Governance screenshots are not available in its repository.
 
 ## Current Features
 
 - Flask application with an application factory.
-- A home route (`/`) that renders a Jinja template.
+- Dedicated top-level routes for Home (`/`), Projects (`/projects`), About (`/about`), Skills (`/skills`), and Contact (`/contact`). Each navigation icon opens its page at the top.
 - Semantic page landmarks and a responsive, icon-based primary navigation dock.
 - A warm near-black and brown portfolio theme with restrained copper accents, a white-framed red portrait, high-impact two-line developer headline, centered icon navigation, and responsive confirmed profile copy.
 - Narrow-screen layout stacks project cards and compacts the navigation dock and card spacing.
+- Mobile navigation uses a smaller dock, icons, and tighter header spacing; section spacing is reduced for a more balanced page flow.
 - BloodLink and E-Governance cards with confirmed summaries, technology tags, repository links, and live demos.
 - Dedicated `/projects/bloodlink` and `/projects/egovernance` case-study pages with feature descriptions and technology lists extracted from each project's public README.
 - BloodLink card includes responsive, lazy-loaded JPEG screenshots of its public home page and workflow; cropping and compression reduce their combined size by about 71%. The E-Governance card keeps its abstract illustration until a suitable screenshot is available.
@@ -22,11 +23,12 @@ A personal portfolio project for presenting Shivnandan Kumar's development work,
 - About uses a compact editorial layout beside a highlighted Education card, then stacks cleanly on phone screens.
 - Confirmed skills are grouped into Backend, Frontend, Databases, Developer tools, and Deployment & platform categories.
 - Skills use full-width category rows on desktop, adjusted spacing and wrapping on tablets, and stacked labels and tags on phones. Skill badge hover feedback is subtle and disabled for reduced-motion preferences.
-- Contact form validates names, email addresses, and message length on the server; CSRF tokens and a hidden honeypot provide basic abuse protection.
-- Contact email is sent through configurable SMTP using Python's standard library. SMTP failures are logged with safe stage, exception type, and status-code diagnostics, without logging credentials or message content.
-- `smtp_diagnostic.py` checks SMTP connection, TLS, and authentication without sending an email.
+- Contact form sends validated browser submissions to Web3Forms using JSON `fetch`, with required fields, length limits, a loading state, and the existing hidden honeypot.
+- The Web3Forms Access Key is rendered into client-side HTML and is therefore public by design. It is never stored in Git; configure it through `WEB3FORMS_ACCESS_KEY`.
+- Direct browser submissions do not pass through Flask-WTF validation or CSRF protection. Browser validation and the honeypot improve the experience and filter basic bots, but client-side checks can be bypassed.
+- `email_service.py` and `smtp_diagnostic.py` remain as legacy SMTP implementation and no-email diagnostic; they are no longer called by the production contact flow.
 - E-Governance artwork remains an abstract CSS illustration; it is not presented as an actual product screenshot.
-- A skip link, visible keyboard focus styles, and immediate section navigation that respects reduced-motion preferences.
+- A skip link, visible keyboard focus styles, and direct page navigation through the icon dock.
 - Inline SVG navigation icons with accessible names and hover/focus tooltip labels; no icon package is required.
 - SEO description and Open Graph metadata, a lightweight SVG favicon, and dynamically generated `robots.txt` and `sitemap.xml` endpoints.
 - Open Graph and large-image social preview metadata use the portfolio portrait and project screenshots already available in the repository.
@@ -50,9 +52,10 @@ The portfolio site itself does not use a database, authentication, an admin pane
 |-- app.py                 # Flask application factory and routes
 |-- project_data.py        # Confirmed project case-study content
 |-- render.yaml            # Render web service and environment variable blueprint
-|-- email_service.py       # SMTP delivery through Python's standard library
-|-- smtp_diagnostic.py     # Safe SMTP/TLS/authentication check; sends no email
-|-- forms.py               # Contact form validation and honeypot
+|-- .env.example           # Placeholder environment variable names only
+|-- email_service.py       # Legacy SMTP delivery code, not used by production contact flow
+|-- smtp_diagnostic.py     # Legacy safe SMTP/TLS/authentication check; sends no email
+|-- forms.py               # Contact field rendering and honeypot definition
 |-- requirements.txt       # Runtime dependencies
 |-- requirements-dev.txt   # Runtime dependencies plus pytest
 |-- static/
@@ -60,14 +63,23 @@ The portfolio site itself does not use a database, authentication, an admin pane
 |   |   `-- shivnandan-kumar-resume.pdf # Downloadable resume
 |   |-- css/
 |   |   `-- styles.css     # Responsive layout and accessibility styles
+|   |-- js/
+|   |   `-- contact-form.js # Client-side validation and Web3Forms submission
 |   |-- favicon.svg        # Lightweight site icon
 |   `-- images/
 |       `-- projects/      # Project screenshots
 |-- templates/
 |   |-- index.html         # Home page template
+|   |-- projects.html      # Projects landing page
+|   |-- section_page.html  # Shared About, Skills, and Contact page shell
+|   |-- _site_header.html  # Shared accessible navigation dock
+|   |-- _projects_section.html # Shared project listing
+|   |-- _about_section.html    # About and education content
+|   |-- _skills_section.html   # Skills content
+|   |-- _contact_section.html  # Web3Forms contact form
 |   `-- project_detail.html # Shared case-study page template
 `-- tests/
-    `-- test_routes.py     # Tests for public Flask routes
+    `-- test_routes.py     # Public-route and contact integration contract tests
 ```
 
 ## Requirements
@@ -119,7 +131,7 @@ With the virtual environment active, run the test suite from the project root:
 python -m pytest
 ```
 
-The current tests check public page content and navigation, responsive CSS, and contact form rendering, input validation, CSRF rejection, honeypot handling, successful mocked delivery, and graceful behavior when SMTP settings are missing. Tests do not send email.
+The current tests check public page content and navigation, responsive CSS, contact-form markup, the Flask route/CSRF boundary, and key client-script behavior contracts. The browser-side test is a source contract check; it does not call Web3Forms or send a real message. The legacy SMTP unit test uses a mock server.
 
 ## Application Flow
 
@@ -137,32 +149,30 @@ The repository includes a `render.yaml` Blueprint for the Flask web service:
 - **Build command:** `pip install -r requirements.txt`
 - **Start command:** `gunicorn app:app --bind 0.0.0.0:$PORT`
 
-`app:app` means "load the `app` object from the `app.py` module." The Blueprint generates `SECRET_KEY` and prompts for private SMTP values without placing credentials in source control.
+`app:app` means "load the `app` object from the `app.py` module." The Blueprint generates `SECRET_KEY` and requests `WEB3FORMS_ACCESS_KEY` without putting the key in source control.
 
-Render Free web services block outbound SMTP ports `25`, `465`, and `587`. The portfolio can run on Free, but contact email through the current Gmail SMTP setup requires a paid web service. The Blueprint does not select a paid plan; choose one in Render only after reviewing its price.
+The portfolio sends contact submissions from the visitor's browser to Web3Forms, so its production contact flow does not use Gmail SMTP. The Access Key is public in the rendered form, as expected for Web3Forms client-side integration. Configure it in Render's environment settings and never commit a real key.
 
 To create the service:
 
 1. Sign in to Render and choose **New → Blueprint**.
 2. Connect `shivnandan-kumar/shivnandan-portfolio` and select the branch containing `render.yaml`.
-3. Review the proposed web service and provide the requested values for `CONTACT_RECIPIENT`, `SMTP_USERNAME`, and `SMTP_PASSWORD` in Render's private dashboard prompt.
+3. Review the proposed web service and provide `WEB3FORMS_ACCESS_KEY` in Render's environment settings. Do not paste the key into chat or Git.
 4. Create the Blueprint and wait for the first deploy to finish.
-5. Open the generated `onrender.com` URL and check the home page, project pages, and contact form.
+5. Open the generated `onrender.com` URL and check the home page and project pages. Test contact submission only after Web3Forms has approved the domain, if approval is required.
 
-Do not paste SMTP credentials into chat or commit them to Git. Render Blueprint creation and the final live smoke-check require access to your Render account and are not performed by a repository push.
+Do not paste the Access Key into chat or commit it to Git. Render Blueprint creation and the final live smoke-check require access to your Render account and are not performed by a repository push.
 
-The contact form reads these environment variables. Set them in Render's environment settings; keep credentials out of source control:
+The application reads these environment variables:
 
 - `SECRET_KEY`: a long, random secret used to protect Flask sessions and CSRF tokens. Required on Render.
-- `CONTACT_RECIPIENT`: destination inbox for contact messages.
-- `SMTP_HOST`: SMTP server hostname from the chosen mail provider.
-- `SMTP_PORT`: `587` for STARTTLS or `465` for implicit TLS. Defaults to `587`.
-- `SMTP_USERNAME`: SMTP login username.
-- `SMTP_PASSWORD`: SMTP password or provider-issued app password.
+- `WEB3FORMS_ACCESS_KEY`: your Web3Forms access key. The key is included in rendered client-side form markup and is public; it is not an application secret. Use the placeholder in `.env.example` only as a setup guide, then configure the real key in your local environment or Render dashboard.
 
-Until all SMTP values are set, the form validates submissions but reports that delivery is unavailable. The recipient address is kept in environment configuration and is not rendered on the page.
+Use `.env.example` as a variable-name reference and set `WEB3FORMS_ACCESS_KEY` in your shell or local launcher before starting Flask; the application does not load `.env` files automatically. Flask-WTF's CSRF token is not submitted: the browser sends directly to Web3Forms instead of posting to Flask. This means Flask-WTF does not validate or protect this contact submission; client-side validation is bypassable.
 
-To diagnose SMTP locally without sending a message, set the SMTP environment variables in the same terminal session and run:
+Web3Forms documents that some platform-provided free subdomains may not be approved; a custom domain may be required. Render's free `onrender.com` hostname has not been tested for this portfolio, so successful Web3Forms delivery there is not confirmed. Check Web3Forms domain approval and test the deployed form before relying on it.
+
+The legacy SMTP diagnostic can still be used locally without sending a message if you separately configure SMTP values:
 
 ```powershell
 python .\smtp_diagnostic.py
@@ -178,7 +188,7 @@ Development follows the approved product requirements and proceeds in small revi
 - Refine visual details across the portfolio as sections are reviewed.
 - Create the responsive visual design and accessible interactions.
 - Add image optimization and lazy loading for project imagery.
-- Configure SMTP credentials in Render and verify an actual delivery.
+- Test Web3Forms submission from the deployed Render domain after any required domain approval.
 - Configure and verify Render deployment.
 
 Personal details, project URLs, assets, and email credentials will be added only after they are confirmed. Version 1.0 does not include a database, admin panel, or authentication system.

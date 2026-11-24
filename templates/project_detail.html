@@ -25,12 +25,13 @@
   <body>
     <a class="skip-link" href="#project-main">Skip to project details</a>
 
-    <header class="project-detail-header">
+    <div class="mobile-page-scroll">
+      <header class="project-detail-header">
       <a class="site-brand" href="{{ url_for('home', _anchor='home') }}">Shivnandan Kumar</a>
       <a class="detail-back-link" href="{{ url_for('projects_page') }}">← All projects</a>
     </header>
 
-    <main class="project-detail-main" id="project-main" tabindex="-1">
+      <main class="project-detail-main" id="project-main" tabindex="-1">
       <section class="project-detail-hero" aria-labelledby="project-title">
         <p class="eyebrow">{{ project.category }}</p>
         <h1 id="project-title">{{ project.title }}</h1>
@@ -97,12 +98,13 @@
           {% endfor %}
         </ul>
       </section>
-    </main>
+      </main>
 
-    <footer class="site-footer project-detail-footer">
-      <a href="{{ url_for('home', _anchor='projects') }}">Back to selected work</a>
-      {% include "_social_links.html" %}
-    </footer>
+      <footer class="site-footer project-detail-footer">
+        <a href="{{ url_for('home', _anchor='projects') }}">Back to selected work</a>
+        {% include "_social_links.html" %}
+      </footer>
+    </div>
     <script src="{{ url_for('static', filename='js/scroll-reveal.js') }}" defer></script>
   </body>
 </html>

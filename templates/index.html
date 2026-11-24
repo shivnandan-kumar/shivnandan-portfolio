@@ -23,7 +23,8 @@
     {% set active_page = "home" %}
     {% include "_site_header.html" %}
 
-    <main id="main-content" tabindex="-1">
+    <div class="mobile-page-scroll">
+      <main id="main-content" tabindex="-1">
       <section class="page-section hero" id="home" aria-labelledby="home-title">
         <div class="hero-profile-card">
           <figure class="hero-profile-photo">
@@ -219,12 +220,13 @@
           <p class="contact-notice contact-notice-error" role="alert">Please enable JavaScript to send a message.</p>
         </noscript>
       </section>
-    </main>
+      </main>
 
-    <footer class="site-footer">
-      <p>Shivnandan Kumar</p>
-      {% include "_social_links.html" %}
-    </footer>
+      <footer class="site-footer">
+        <p>Shivnandan Kumar</p>
+        {% include "_social_links.html" %}
+      </footer>
+    </div>
     <script src="{{ url_for('static', filename='js/scroll-reveal.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/contact-form.js') }}" defer></script>
   </body>

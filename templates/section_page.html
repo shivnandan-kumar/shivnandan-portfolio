@@ -12,13 +12,15 @@
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
     {% include "_site_header.html" %}
-    <main class="standalone-page-main" id="main-content" tabindex="-1">
-      {% include section_template %}
-    </main>
-    <footer class="site-footer">
-      <p>Shivnandan Kumar</p>
-      {% include "_social_links.html" %}
-    </footer>
+    <div class="mobile-page-scroll">
+      <main class="standalone-page-main" id="main-content" tabindex="-1">
+        {% include section_template %}
+      </main>
+      <footer class="site-footer">
+        <p>Shivnandan Kumar</p>
+        {% include "_social_links.html" %}
+      </footer>
+    </div>
     <script src="{{ url_for('static', filename='js/scroll-reveal.js') }}" defer></script>
     {% if active_page == 'contact' %}<script src="{{ url_for('static', filename='js/contact-form.js') }}" defer></script>{% endif %}
   </body>

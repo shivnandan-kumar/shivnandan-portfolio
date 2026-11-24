@@ -21,7 +21,7 @@ The E-Governance project is represented by an illustration in the portfolio; no 
 - Separate responsive pages for Home, Projects, About, Skills, and Contact.
 - Project case studies for BloodLink and the E-Governance Complaint and Service Management Portal, with repository and demo links.
 - Confirmed profile and education details, grouped skills, and a downloadable resume.
-- Accessible icon navigation, keyboard focus states, reduced-motion support, and responsive layouts.
+- Accessible icon navigation with a floating mobile dock, keyboard focus states, reduced-motion support, and responsive layouts.
 - SEO metadata, an SVG favicon, and generated `robots.txt` and `sitemap.xml` routes.
 - Contact form submits from the browser to Web3Forms, with required-field checks, a hidden honeypot, loading feedback, and success or error status.
 
